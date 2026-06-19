@@ -13,21 +13,17 @@ background:
 
 linear-gradient(
 180deg,
-#0b1220 0%,
-#0f172a 40%,
-#111827 100%
+#08111f,
+#0f172a,
+#111827
 );
 
 color:#ffffff;
 
 overflow-x:hidden;
 
-line-height:1.7;
-
 }
 
-
-/* HEADER */
 
 header{
 
@@ -35,15 +31,11 @@ position:fixed;
 
 top:0;
 
-left:0;
-
 width:100%;
 
-background:rgba(9,17,31,.92);
+background:#08111fe8;
 
-backdrop-filter:blur(16px);
-
-border-bottom:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(10px);
 
 z-index:1000;
 
@@ -55,7 +47,7 @@ max-width:1400px;
 
 margin:auto;
 
-padding:18px 30px;
+padding:20px 30px;
 
 display:flex;
 
@@ -67,7 +59,7 @@ align-items:center;
 
 .logo img{
 
-height:72px;
+height:70px;
 
 }
 
@@ -75,32 +67,28 @@ ul{
 
 display:flex;
 
-list-style:none;
+gap:30px;
 
-gap:32px;
+list-style:none;
 
 }
 
-ul li a{
+ul a{
 
 text-decoration:none;
 
+color:#fff;
+
 font-weight:600;
-
-font-size:16px;
-
-color:#ffffff;
 
 }
 
-ul li a:hover{
+ul a:hover{
 
 color:#3b82f6;
 
 }
 
-
-/* SECTIONS */
 
 section{
 
@@ -108,12 +96,10 @@ max-width:1400px;
 
 margin:auto;
 
-padding:110px 35px;
+padding:120px 40px;
 
 }
 
-
-/* HERO */
 
 .hero{
 
@@ -123,19 +109,18 @@ display:grid;
 
 grid-template-columns:1fr 1fr;
 
-gap:70px;
+gap:60px;
 
 align-items:center;
 
 }
 
+
 .hero h1{
 
-font-size:74px;
+font-size:72px;
 
 line-height:1.1;
-
-font-weight:800;
 
 }
 
@@ -155,17 +140,15 @@ color:#cbd5e1;
 
 }
 
+
 .hero img{
 
 width:100%;
 
-border-radius:25px;
-
-box-shadow:
-
-0 25px 60px rgba(59,130,246,.25);
+border-radius:20px;
 
 }
+
 
 .btn{
 
@@ -173,24 +156,24 @@ background:#2563eb;
 
 color:#fff;
 
-padding:18px 32px;
+padding:18px 30px;
 
-text-decoration:none;
+border:none;
 
 border-radius:14px;
 
+text-decoration:none;
+
 font-weight:700;
 
-display:inline-block;
+cursor:pointer;
 
 }
 
 
-/* TITLES */
-
 h2{
 
-font-size:50px;
+font-size:48px;
 
 text-align:center;
 
@@ -199,9 +182,7 @@ margin-bottom:60px;
 }
 
 
-/* ABOUT */
-
-.split{
+.grid2{
 
 display:grid;
 
@@ -213,26 +194,17 @@ align-items:center;
 
 }
 
-.split img{
+
+.grid2 img{
 
 width:100%;
 
-border-radius:25px;
-
-}
-
-.split p{
-
-color:#cbd5e1;
-
-font-size:18px;
+border-radius:20px;
 
 }
 
 
-/* GRID */
-
-.grid{
+.cards{
 
 display:grid;
 
@@ -243,47 +215,31 @@ gap:30px;
 }
 
 
-/* CARDS */
-
 .card{
 
-background:#18263d
-);
+background:#18263d;
 
-padding:35px;
+padding:30px;
 
-border-radius:22px;
-
-border:1px solid rgba(255,255,255,.08);
-
-transition:.3s;
+border-radius:20px;
 
 }
 
-.card:hover{
-
-transform:translateY(-8px);
-
-border:1px solid #2563eb;
-
-}
 
 .card img{
 
 width:100%;
 
-height:220px;
+height:230px;
 
 object-fit:cover;
 
-border-radius:18px;
+border-radius:15px;
 
 margin-bottom:20px;
 
 }
 
-
-/* OFFICE */
 
 .office{
 
@@ -297,30 +253,19 @@ align-items:center;
 
 }
 
+
 iframe{
 
 width:100%;
 
-height:380px;
+height:350px;
 
 border:0;
 
-border-radius:22px;
+border-radius:20px;
 
 }
 
-
-/* CONTACT */
-
-.contact{
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:50px;
-
-}
 
 input,
 textarea{
@@ -329,54 +274,41 @@ width:100%;
 
 padding:18px;
 
-margin-bottom:18px;
+margin-bottom:20px;
 
 background:#18263d;
 
-color:#ffffff;
+color:#fff;
 
-border:1px solid rgba(255,255,255,.12);
+border:none;
 
-border-radius:14px;
-
-}
-
-input::placeholder,
-textarea::placeholder{
-
-color:#94a3b8;
+border-radius:12px;
 
 }
 
-
-/* FOOTER */
 
 footer{
 
-background:#09111f;
+text-align:center;
 
 padding:50px;
-
-text-align:center;
 
 color:#94a3b8;
 
 }
 
-
-/* WHATSAPP */
 
 .whatsapp{
 
 position:fixed;
 
-right:25px;
+bottom:20px;
 
-bottom:25px;
+right:20px;
 
-background:#22c55e;
+background:#25d366;
 
-padding:16px 25px;
+padding:18px 26px;
 
 border-radius:50px;
 
@@ -386,12 +318,8 @@ text-decoration:none;
 
 font-weight:700;
 
-z-index:999;
-
 }
 
-
-/* MOBILE */
 
 @media(max-width:900px){
 
@@ -399,15 +327,7 @@ nav{
 
 flex-direction:column;
 
-padding:15px;
-
-}
-
-.logo img{
-
-height:90px;
-
-margin-bottom:10px;
+gap:20px;
 
 }
 
@@ -417,8 +337,6 @@ display:grid;
 
 grid-template-columns:repeat(3,1fr);
 
-gap:20px;
-
 width:100%;
 
 text-align:center;
@@ -426,9 +344,8 @@ text-align:center;
 }
 
 .hero,
-.split,
-.office,
-.contact{
+.grid2,
+.office{
 
 grid-template-columns:1fr;
 
@@ -436,41 +353,19 @@ grid-template-columns:1fr;
 
 .hero{
 
-padding-top:220px;
+padding-top:230px;
 
 }
 
 .hero h1{
 
-font-size:50px;
-
-}
-
-.hero img{
-
-margin-top:20px;
-
-}
-
-h2{
-
-font-size:36px;
+font-size:52px;
 
 }
 
 section{
 
-position:relative;
-
-z-index:2;
-
-}
-
-.whatsapp{
-
-right:15px;
-
-bottom:15px;
+padding:90px 20px;
 
 }
 
