@@ -10,14 +10,15 @@ body{
 font-family:'Inter',sans-serif;
 
 background:
+
 linear-gradient(
 180deg,
-#edf4ff 0%,
-#f6faff 40%,
-#ffffff 100%
+#09111f 0%,
+#0f172a 35%,
+#111827 100%
 );
 
-color:#0f172a;
+color:#ffffff;
 
 overflow-x:hidden;
 
@@ -26,9 +27,7 @@ line-height:1.7;
 }
 
 
-/* ===========================
-HEADER
-=========================== */
+/* HEADER */
 
 header{
 
@@ -36,13 +35,15 @@ position:fixed;
 
 top:0;
 
+left:0;
+
 width:100%;
 
-background:rgba(255,255,255,.88);
+background:rgba(9,17,31,.92);
 
-backdrop-filter:blur(18px);
+backdrop-filter:blur(16px);
 
-border-bottom:1px solid #dbeafe;
+border-bottom:1px solid rgba(255,255,255,.08);
 
 z-index:1000;
 
@@ -54,7 +55,7 @@ max-width:1400px;
 
 margin:auto;
 
-padding:18px 40px;
+padding:18px 30px;
 
 display:flex;
 
@@ -64,30 +65,9 @@ align-items:center;
 
 }
 
-.logo{
-
-display:flex;
-
-align-items:center;
-
-text-decoration:none;
-
-}
-
 .logo img{
 
-height:85px;
-
-width:auto;
-
-}
-
-
-/* REMOVE THIS IF YOU DELETE SPAN */
-
-.logo span{
-
-display:none;
+height:72px;
 
 }
 
@@ -109,22 +89,18 @@ font-weight:600;
 
 font-size:16px;
 
-color:#0f172a;
-
-transition:.3s;
+color:#ffffff;
 
 }
 
 ul li a:hover{
 
-color:#2563eb;
+color:#3b82f6;
 
 }
 
 
-/* ===========================
-GENERAL SECTION
-=========================== */
+/* SECTIONS */
 
 section{
 
@@ -132,26 +108,12 @@ max-width:1400px;
 
 margin:auto;
 
-padding:110px 40px;
-
-}
-
-h2{
-
-font-size:52px;
-
-text-align:center;
-
-margin-bottom:60px;
-
-font-weight:800;
+padding:110px 35px;
 
 }
 
 
-/* ===========================
-HERO
-=========================== */
+/* HERO */
 
 .hero{
 
@@ -161,27 +123,15 @@ display:grid;
 
 grid-template-columns:1fr 1fr;
 
-align-items:center;
-
 gap:70px;
 
-background:
-
-radial-gradient(circle at top right,#dbeafe 0%,transparent 30%),
-
-radial-gradient(circle at bottom left,#bfdbfe 0%,transparent 25%),
-
-#f8fbff;
-
-border-radius:30px;
-
-margin-top:120px;
+align-items:center;
 
 }
 
 .hero h1{
 
-font-size:72px;
+font-size:74px;
 
 line-height:1.1;
 
@@ -189,9 +139,9 @@ font-weight:800;
 
 }
 
-.hero h1 span{
+.hero span{
 
-color:#2563eb;
+color:#3b82f6;
 
 }
 
@@ -201,7 +151,7 @@ font-size:22px;
 
 margin:30px 0;
 
-max-width:650px;
+color:#cbd5e1;
 
 }
 
@@ -213,59 +163,43 @@ border-radius:25px;
 
 box-shadow:
 
-0 20px 50px rgba(37,99,235,.12);
+0 25px 60px rgba(59,130,246,.25);
 
 }
 
-
-/* ===========================
-BUTTONS
-=========================== */
-
 .btn{
-
-display:inline-block;
-
-padding:18px 32px;
 
 background:#2563eb;
 
-color:white;
+color:#fff;
+
+padding:18px 32px;
 
 text-decoration:none;
-
-border:none;
 
 border-radius:14px;
 
 font-weight:700;
 
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-.btn:hover{
-
-transform:translateY(-4px);
-
-background:#1d4ed8;
+display:inline-block;
 
 }
 
 
-/* ===========================
-ABOUT
-=========================== */
+/* TITLES */
 
-#about{
+h2{
 
-background:#ffffff;
+font-size:50px;
 
-border-radius:30px;
+text-align:center;
+
+margin-bottom:60px;
 
 }
+
+
+/* ABOUT */
 
 .split{
 
@@ -273,7 +207,7 @@ display:grid;
 
 grid-template-columns:1fr 1fr;
 
-gap:70px;
+gap:60px;
 
 align-items:center;
 
@@ -289,40 +223,14 @@ border-radius:25px;
 
 .split p{
 
+color:#cbd5e1;
+
 font-size:18px;
 
 }
 
 
-/* ===========================
-SERVICES
-=========================== */
-
-#services{
-
-background:#eef5ff;
-
-border-radius:30px;
-
-}
-
-
-/* ===========================
-TECHNOLOGY
-=========================== */
-
-#technology{
-
-background:#ffffff;
-
-border-radius:30px;
-
-}
-
-
-/* ===========================
-GRID
-=========================== */
+/* GRID */
 
 .grid{
 
@@ -335,21 +243,23 @@ gap:30px;
 }
 
 
-/* ===========================
-CARDS
-=========================== */
+/* CARDS */
 
 .card{
 
-background:#ffffff;
+background:
+
+linear-gradient(
+180deg,
+#18263d,
+#111827
+);
 
 padding:35px;
 
-border-radius:24px;
+border-radius:22px;
 
-box-shadow:
-
-0 15px 40px rgba(37,99,235,.08);
+border:1px solid rgba(255,255,255,.08);
 
 transition:.3s;
 
@@ -359,9 +269,7 @@ transition:.3s;
 
 transform:translateY(-8px);
 
-box-shadow:
-
-0 20px 50px rgba(37,99,235,.15);
+border:1px solid #2563eb;
 
 }
 
@@ -369,36 +277,18 @@ box-shadow:
 
 width:100%;
 
-height:240px;
+height:220px;
 
 object-fit:cover;
 
 border-radius:18px;
 
-margin-bottom:18px;
-
-}
-
-.card h3{
-
-font-size:24px;
-
-margin-bottom:10px;
+margin-bottom:20px;
 
 }
 
 
-/* ===========================
-OFFICE
-=========================== */
-
-#office{
-
-background:#eef5ff;
-
-border-radius:30px;
-
-}
+/* OFFICE */
 
 .office{
 
@@ -416,26 +306,16 @@ iframe{
 
 width:100%;
 
-height:400px;
+height:380px;
 
 border:0;
 
-border-radius:25px;
+border-radius:22px;
 
 }
 
 
-/* ===========================
-CONTACT
-=========================== */
-
-#contact{
-
-background:#ffffff;
-
-border-radius:30px;
-
-}
+/* CONTACT */
 
 .contact{
 
@@ -454,43 +334,42 @@ width:100%;
 
 padding:18px;
 
-border:1px solid #d9e3f0;
+margin-bottom:18px;
+
+background:#18263d;
+
+color:#ffffff;
+
+border:1px solid rgba(255,255,255,.12);
 
 border-radius:14px;
 
-margin-bottom:20px;
-
-font-size:16px;
-
 }
 
-textarea{
+input::placeholder,
+textarea::placeholder{
 
-resize:none;
+color:#94a3b8;
 
 }
 
 
-/* ===========================
-FOOTER
-=========================== */
+/* FOOTER */
 
 footer{
 
-background:#eef5ff;
+background:#09111f;
 
 padding:50px;
 
 text-align:center;
 
-margin-top:80px;
+color:#94a3b8;
 
 }
 
 
-/* ===========================
-WHATSAPP
-=========================== */
+/* WHATSAPP */
 
 .whatsapp{
 
@@ -502,42 +381,52 @@ bottom:25px;
 
 background:#22c55e;
 
-color:#ffffff;
-
-padding:16px 24px;
+padding:16px 25px;
 
 border-radius:50px;
+
+color:#fff;
 
 text-decoration:none;
 
 font-weight:700;
 
-box-shadow:
-
-0 8px 25px rgba(0,0,0,.15);
+z-index:999;
 
 }
 
 
-/* ===========================
-MOBILE
-=========================== */
+/* MOBILE */
 
-@media(max-width:1000px){
+@media(max-width:900px){
 
 nav{
 
 flex-direction:column;
 
-gap:20px;
+padding:15px;
+
+}
+
+.logo img{
+
+height:90px;
+
+margin-bottom:10px;
 
 }
 
 ul{
 
-flex-wrap:wrap;
+display:grid;
 
-justify-content:center;
+grid-template-columns:repeat(3,1fr);
+
+gap:20px;
+
+width:100%;
+
+text-align:center;
 
 }
 
@@ -550,27 +439,41 @@ grid-template-columns:1fr;
 
 }
 
+.hero{
+
+padding-top:220px;
+
+}
+
 .hero h1{
 
-font-size:44px;
+font-size:50px;
+
+}
+
+.hero img{
+
+margin-top:20px;
 
 }
 
 h2{
 
-font-size:38px;
+font-size:36px;
 
 }
 
 section{
 
-padding:80px 25px;
+padding:80px 22px;
 
 }
 
-.logo img{
+.whatsapp{
 
-height:70px;
+right:15px;
+
+bottom:15px;
 
 }
 
