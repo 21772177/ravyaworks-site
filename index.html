@@ -6,7 +6,8 @@
     <title>Ravya Works | Modern Digital Solutions</title>
     <!-- Import elegant fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <!-- Style link with cache-busting to force mobile styling updates -->
+    <link rel="stylesheet" href="style.css?v=1.1">
 </head>
 <body>
 
@@ -27,6 +28,7 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#services">Services</a></li>
+                <li><a href="portfolio/">Portfolio</a></li> <!-- Link to separate portfolio folder -->
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
@@ -46,7 +48,7 @@
         <h2 class="section-title">About <span>Us</span></h2>
         <div class="flex-container" style="margin-bottom: 50px;">
             <div class="flex-image">
-                <!-- Professional digital collaboration image -->
+                <!-- Local image path -->
                 <img src="images/about.jpg" alt="Team Collaboration">
             </div>
             <div class="flex-text">
