@@ -1,278 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Portfolio | Ravya Works</title>
-    <!-- Import elegant fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Link to the main style sheet from the parent folder -->
-    <link rel="stylesheet" href="../style.css">
-    
-    <style>
-        /* Portfolio specific overrides */
-        .portfolio-hero {
-            padding: 160px 20px 60px 20px;
-            text-align: center;
-        }
-        .portfolio-hero h1 {
-            font-size: 40px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            color: #FFFFFF;
-        }
-        .portfolio-hero p {
-            font-size: 18px;
-            color: #9CA3AF;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-        .portfolio-section {
-            padding: 40px 20px 100px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
-        .portfolio-card {
-            background-color: #111827;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-        .portfolio-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-        .card-image-box {
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-            background-color: #1F2937;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .card-image-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .portfolio-card:hover .card-image-box img {
-            transform: scale(1.05);
-        }
-        .card-content {
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-        .card-content h3 {
-            font-size: 20px;
-            color: #FFFFFF;
-            margin-bottom: 10px;
-        }
-        .card-content p {
-            color: #9CA3AF;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            flex-grow: 1;
-        }
-        .card-content .btn-demo {
-            display: inline-block;
-            text-align: center;
-            padding: 10px 20px;
-            background-color: #3B82F6;
-            color: #FFFFFF;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-            width: 100%;
-        }
-        .card-content .btn-demo:hover {
-            background-color: #2563EB;
-        }
-
-        @media (max-width: 768px) {
-            .portfolio-hero {
-                padding: 120px 20px 40px 20px;
-            }
-            .portfolio-hero h1 {
-                font-size: 30px;
-            }
-            .portfolio-hero p {
-                font-size: 15px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio | Ravya Works</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<header>
+<div class="container nav">
+<a class="logo" href="../">Ravya<span>Works</span></a>
+<nav>
+<a href="../#home">Home</a>
+<a href="../#about">About</a>
+<a href="../#services">Services</a>
+<a href="../#contact">Contact</a>
+</nav>
+</div>
+</header>
 
-    <!-- Header / Navigation -->
-    <header>
-        <nav class="nav-container">
-            <a href="../#home" class="logo">Ravya<span>Works</span></a>
-            
-            <!-- Hamburger Toggle (Checkbox Hack - No JS Required) -->
-            <input type="checkbox" id="menu-toggle" class="menu-toggle">
-            <label for="menu-toggle" class="hamburger-label">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-            
-            <ul class="nav-links">
-                <!-- Using relative links to jump back to homepage sections -->
-                <li><a href="../#home">Home</a></li>
-                <li><a href="../#about">About Us</a></li>
-                <li><a href="../#services">Services</a></li>
-                <li><a href="../#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+<section class="hero">
+<h4>OUR PORTFOLIO</h4>
+<h1>Professional Website Demos</h1>
+<p>Explore modern demo websites crafted for different industries.</p>
+</section>
 
-    <!-- Portfolio Hero Section -->
-    <section class="portfolio-hero">
-        <h1>Our <span>Live Demos</span></h1>
-        <p>Explore our pre-engineered business solutions designed to solve challenges across different industry verticals.</p>
-    </section>
+<section class="grid container">
 
-    <!-- Portfolio Grid Section -->
-    <section class="portfolio-section">
-        <div class="portfolio-grid">
+<div class="card">
+<img src="../demos/school/assets/hero.jpg" alt="School Website">
+<div class="content">
+<h3>School Website</h3>
+<p>Admissions, gallery, events and enquiry management.</p>
+<a class="btn" href="../demos/school/" target="_blank">View Demo</a>
+</div>
+</div>
 
-            <!-- 1. Education Card -->
-            <div class="portfolio-card">
-                <div class="card-image-box">
-                    <img src="../images/school.jpg" alt="Education Website">
-                </div>
-                <div class="card-content">
-                    <h3>Education Website</h3>
-                    <p>Features online courses, student enrollment portals, class schedules, and teacher management directories.</p>
-                    <a href="../demos/school/" target="_blank" rel="noopener noreferrer" class="btn-demo">View Demo</a>
-                </div>
-            </div>
+<div class="card">
+<img src="../demos/restaurant/assets/hero.jpg" alt="Restaurant Website">
+<div class="content">
+<h3>Restaurant Website</h3>
+<p>Menu, reservations and online ordering.</p>
+<a class="btn" href="../demos/restaurant/" target="_blank">View Demo</a>
+</div>
+</div>
 
-            <!-- 2. Restaurant Card -->
-            <div class="portfolio-card">
-                <div class="card-image-box">
-                    <img src="../images/restaurant.jpg" alt="Restaurant Website">
-                </div>
-                <div class="card-content">
-                    <h3>Restaurant Website</h3>
-                    <p>Designed with responsive interactive menus, table reservation bookings, and online delivery options.</p>
-                    <a href="../demos/restaurant/" target="_blank" rel="noopener noreferrer" class="btn-demo">View Demo</a>
-                </div>
-            </div>
+<div class="card">
+<img src="../demos/hospital/assets/hero.jpg" alt="Hospital Website">
+<div class="content">
+<h3>Hospital Website</h3>
+<p>Doctors, appointments and departments.</p>
+<a class="btn" href="../demos/hospital/" target="_blank">View Demo</a>
+</div>
+</div>
 
-            <!-- 3. Hospital Card -->
-            <div class="portfolio-card">
-                <div class="card-image-box">
-                    <img src="../images/hospital.jpg" alt="Hospital Website">
-                </div>
-                <div class="card-content">
-                    <h3>Hospital Website</h3>
-                    <p>Equipped with doctor scheduling systems, online appointment booking, medical department overviews, and patient guides.</p>
-                    <a href="../demos/hospital/" target="_blank" rel="noopener noreferrer" class="btn-demo">View Demo</a>
-                </div>
-            </div>
+<div class="card">
+<img src="../demos/gym/assets/hero.jpg" alt="Gym Website">
+<div class="content">
+<h3>Gym Website</h3>
+<p>Memberships, trainers and fitness plans.</p>
+<a class="btn" href="../demos/gym/" target="_blank">View Demo</a>
+</div>
+</div>
 
-            <!-- 4. Gym Card -->
-            <div class="portfolio-card">
-                <div class="card-image-box">
-                    <img src="../images/gym.jpg" alt="Gym Website">
-                </div>
-                <div class="card-content">
-                    <h3>Gym & Fitness Website</h3>
-                    <p>Features workout program displays, member portal logins, trainer profiles, and online class scheduler modules.</p>
-                    <a href="../demos/gym/" target="_blank" rel="noopener noreferrer" class="btn-demo">View Demo</a>
-                </div>
-            </div>
+<div class="card">
+<img src="../demos/salon/assets/hero.jpg" alt="Salon Website">
+<div class="content">
+<h3>Salon Website</h3>
+<p>Services, pricing and appointments.</p>
+<a class="btn" href="../demos/salon/" target="_blank">View Demo</a>
+</div>
+</div>
 
-            <!-- 5. Salon Card -->
-            <div class="portfolio-card">
-                <div class="card-image-box">
-                    <img src="../images/salon.jpg" alt="Salon Website">
-                </div>
-                <div class="card-content">
-                    <h3>Salon Website</h3>
-                    <p>Displays service pricing sheets, stylist portfolios, and an integrated booking platform for client reservations.</p>
-                    <a href="../demos/salon/" target="_blank" rel="noopener noreferrer" class="btn-demo">View Demo</a>
-                </div>
-            </div>
+<div class="card">
+<img src="../demos/grocery/assets/hero.jpg" alt="Grocery Website">
+<div class="content">
+<h3>Grocery Website</h3>
+<p>Products and delivery.</p>
+<a class="btn" href="../demos/grocery/" target="_blank">View Demo</a>
+</div>
+</div>
 
-            <!-- 6. Grocery Card -->
-            <div class="portfolio-card">
-                <div class="card-image-box">
-                    <img src="../images/grocery.jpg" alt="Grocery Website">
-                </div>
-                <div class="card-content">
-                    <h3>Grocery Website</h3>
-                    <p>An e-commerce layout featuring search filters, product collections, secure shopping carts, and direct delivery systems.</p>
-                    <a href="../demos/grocery/" target="_blank" rel="noopener noreferrer" class="btn-demo">View Demo</a>
-                </div>
-            </div>
+<div class="card">
+<img src="../demos/boutique/assets/hero.jpg" alt="Boutique Website">
+<div class="content">
+<h3>Boutique Website</h3>
+<p>Fashion collections and catalogue.</p>
+<a class="btn" href="../demos/boutique/" target="_blank">View Demo</a>
+</div>
+</div>
 
-            <!-- 7. Boutique Card -->
-            <div class="portfolio-card">
-                <div class="card-image-box">
-                    <img src="../images/boutique.jpg" alt="Boutique Website">
-                </div>
-                <div class="card-content">
-                    <h3>Fashion Boutique Website</h3>
-                    <p>Highlights lookbook collections, modern catalog product listings, interactive filters, and payment checkouts.</p>
-                    <a href="../demos/boutique/" target="_blank" rel="noopener noreferrer" class="btn-demo">View Demo</a>
-                </div>
-            </div>
+<div class="card">
+<img src="../demos/caterer/assets/hero.jpg" alt="Caterer Website">
+<div class="content">
+<h3>Caterer Website</h3>
+<p>Events, menus and bookings.</p>
+<a class="btn" href="../demos/caterer/" target="_blank">View Demo</a>
+</div>
+</div>
 
-            <!-- 8. Caterer Card -->
-            <div class="portfolio-card">
-                <div class="card-image-box">
-                    <img src="../images/caterer.jpg" alt="Caterer Website">
-                </div>
-                <div class="card-content">
-                    <h3>Catering Services Website</h3>
-                    <p>Features custom event menu planning systems, contact forms, service packages, and venue gallery showcases.</p>
-                    <a href="../demos/caterer/" target="_blank" rel="noopener noreferrer" class="btn-demo">View Demo</a>
-                <div class="portfolio-card">
-                    <img src="../images/coaching.jpg" alt="Coaching Institute Website">
-                    <div class="card-content">
-                        <span class="category">Education</span>
-                        <h3>Coaching Institute Website</h3>
-                        <p>Professional website for coaching classes, tuition centres and training institutes with admissions, courses, gallery and contact information.</p>
-                        <a href="../demos/coaching/" target="_blank" rel="noopener noreferrer" class="btn-demo">
-                            View Demo
-                        </a>
-                    </div>
-                </div>
-             </section>
+<div class="card">
+<img src="../demos/coaching/assets/hero.jpg" alt="Coaching Institute Website">
+<div class="content">
+<h3>Coaching Institute Website</h3>
+<p>Courses, admissions and faculty.</p>
+<a class="btn" href="../demos/coaching/" target="_blank">View Demo</a>
+</div>
+</div>
 
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/919503196964" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.97C16.528 2.017 14.077.99 11.493.99c-5.438 0-9.861 4.372-9.865 9.804-.001 1.73.473 3.424 1.378 4.92l-.943 3.445 3.584-.93zm11.366-6.666c-.312-.156-1.848-.91-2.137-1.014-.29-.104-.5-.156-.711.156-.211.312-.818 1.014-1.002 1.222-.185.208-.369.234-.682.078-.312-.156-1.318-.485-2.51-1.548-.928-.827-1.554-1.849-1.736-2.16-.182-.312-.02-.48.136-.636.141-.14.312-.364.469-.546.156-.182.208-.312.312-.52.104-.208.052-.39-.026-.546-.078-.156-.711-1.714-.975-2.348-.256-.618-.517-.534-.711-.544-.183-.009-.393-.01-.602-.01-.21 0-.553.078-.842.39-.29.312-1.107 1.082-1.107 2.636 0 1.554 1.133 3.056 1.29 3.264.156.208 2.23 3.402 5.4 4.764.754.324 1.343.518 1.802.663.757.24 1.446.207 1.99.125.607-.09 1.847-.754 2.11-1.482.264-.728.264-1.352.185-1.482-.078-.13-.29-.208-.602-.364z\"/>\n        </svg>\n        WhatsApp\n    </a>\n\n    <!-- Footer -->\n    <footer>\n        <p>&copy; 2026 Ravya Works. A brand of RunavyaAvyaraWorks Private Limited. All rights reserved.</p>\n    </footer>\n\n</body>\n</html>\n```
-
----
-
-### Step 3: Link to the Portfolio page on your main Homepage
-To allow visitors on your homepage (`index.html` in the root folder) to access this portfolio page:
-1. Open your main root `index.html`.
-2. Locate the link pointing to `#contact` inside your `<header>`'s navigation bar.
-3. Add a new menu item pointing to your portfolio page:
-   ```html
-   <ul class="nav-links">
-       <li><a href="#home">Home</a></li>
-       <li><a href="#about">About Us</a></li>
-       <li><a href="#services">Services</a></li>
-       <li><a href="portfolio/">Portfolio</a></li> <!-- New Link -->
-       <li><a href="#contact">Contact</a></li>
-   </ul>
+</section>
+<footer>© 2026 Ravya Works. All Rights Reserved.</footer>
+</body>
+</html>
