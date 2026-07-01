@@ -1,0 +1,184 @@
+{
+  "industries": [
+    {
+      "slug": "restaurant",
+      "label": "Restaurant",
+      "description": "Menu display, online reservations, table booking, gallery & reviews",
+      "templatePath": "../../demos/restaurant/",
+      "dataPath": "../../demos/data/restaurant/",
+      "heroImage": "../../demos/restaurant/assets/hero.jpg",
+      "navLabel": "Menu",
+      "servicesStyle": "menu",
+      "theme": {
+        "primary": "#c0392b",
+        "primaryDark": "#962d22",
+        "primaryLight": "#e74c3c",
+        "secondary": "#2c3e50",
+        "accent": "#f39c12",
+        "surfaceAlt": "#fff5f2",
+        "headingFont": "'Poppins', sans-serif",
+        "bodyFont": "'Inter', sans-serif"
+      }
+    },
+    {
+      "slug": "hospital",
+      "label": "Hospital",
+      "description": "Doctor profiles, departments, appointment booking, emergency info",
+      "templatePath": "../../demos/hospital/",
+      "dataPath": "../../demos/data/hospital/",
+      "heroImage": "../../demos/hospital/assets/hero.jpg",
+      "navLabel": "Departments",
+      "servicesStyle": "cards",
+      "theme": {
+        "primary": "#0d9488",
+        "primaryDark": "#0f766e",
+        "primaryLight": "#14b8a6",
+        "secondary": "#1e293b",
+        "accent": "#f59e0b",
+        "surfaceAlt": "#f0fdfa",
+        "headingFont": "'Poppins', sans-serif",
+        "bodyFont": "'Inter', sans-serif"
+      }
+    },
+    {
+      "slug": "school",
+      "label": "School",
+      "description": "Admissions, academics, faculty, events, gallery & blog",
+      "templatePath": "../../demos/school/",
+      "dataPath": "../../demos/data/school/",
+      "heroImage": "../../demos/school/assets/hero.jpg",
+      "navLabel": "Academics",
+      "servicesStyle": "cards",
+      "theme": {
+        "primary": "#2563eb",
+        "primaryDark": "#1d4ed8",
+        "primaryLight": "#3b82f6",
+        "secondary": "#1e293b",
+        "accent": "#f59e0b",
+        "surfaceAlt": "#f0f4ff",
+        "headingFont": "'Poppins', sans-serif",
+        "bodyFont": "'Inter', sans-serif"
+      }
+    },
+    {
+      "slug": "gym",
+      "label": "Gym & Fitness",
+      "description": "Membership plans, trainer profiles, programs, class schedules",
+      "templatePath": "../../demos/gym/",
+      "dataPath": "../../demos/data/gym/",
+      "heroImage": "../../demos/gym/assets/hero.jpg",
+      "navLabel": "Programs",
+      "servicesStyle": "pricing",
+      "theme": {
+        "primary": "#16a34a",
+        "primaryDark": "#15803d",
+        "primaryLight": "#22c55e",
+        "secondary": "#1e293b",
+        "accent": "#f97316",
+        "surfaceAlt": "#f0fdf4",
+        "headingFont": "'Poppins', sans-serif",
+        "bodyFont": "'Inter', sans-serif"
+      }
+    },
+    {
+      "slug": "salon",
+      "label": "Salon & Beauty",
+      "description": "Service menu, pricing, booking, stylist profiles & gallery",
+      "templatePath": "../../demos/salon/",
+      "dataPath": "../../demos/data/salon/",
+      "heroImage": "../../demos/salon/assets/hero.jpg",
+      "navLabel": "Services",
+      "servicesStyle": "pricing",
+      "theme": {
+        "primary": "#be185d",
+        "primaryDark": "#9d174d",
+        "primaryLight": "#db2777",
+        "secondary": "#1e293b",
+        "accent": "#f59e0b",
+        "surfaceAlt": "#fdf2f8",
+        "headingFont": "'Poppins', sans-serif",
+        "bodyFont": "'Inter', sans-serif"
+      }
+    },
+    {
+      "slug": "grocery",
+      "label": "Grocery Store",
+      "description": "Product categories, delivery info, weekly offers & contact",
+      "templatePath": "../../demos/grocery/",
+      "dataPath": "../../demos/data/grocery/",
+      "heroImage": "../../demos/grocery/assets/hero.jpg",
+      "navLabel": "Categories",
+      "servicesStyle": "cards",
+      "theme": {
+        "primary": "#65a30d",
+        "primaryDark": "#4d7c0f",
+        "primaryLight": "#84cc16",
+        "secondary": "#1e293b",
+        "accent": "#f59e0b",
+        "surfaceAlt": "#f7fee7",
+        "headingFont": "'Poppins', sans-serif",
+        "bodyFont": "'Inter', sans-serif"
+      }
+    },
+    {
+      "slug": "boutique",
+      "label": "Fashion Boutique",
+      "description": "Collections lookbook, catalogue, style categories & contact",
+      "templatePath": "../../demos/boutique/",
+      "dataPath": "../../demos/data/boutique/",
+      "heroImage": "../../demos/boutique/assets/hero.jpg",
+      "navLabel": "Collections",
+      "servicesStyle": "cards",
+      "theme": {
+        "primary": "#7c3aed",
+        "primaryDark": "#6d28d9",
+        "primaryLight": "#8b5cf6",
+        "secondary": "#1e293b",
+        "accent": "#f59e0b",
+        "surfaceAlt": "#f5f3ff",
+        "headingFont": "'Poppins', sans-serif",
+        "bodyFont": "'Inter', sans-serif"
+      }
+    },
+    {
+      "slug": "caterer",
+      "label": "Caterer",
+      "description": "Event packages, menu catalog, booking & gallery",
+      "templatePath": "../../demos/caterer/",
+      "dataPath": "../../demos/data/caterer/",
+      "heroImage": "../../demos/caterer/assets/hero.jpg",
+      "navLabel": "Packages",
+      "servicesStyle": "menu",
+      "theme": {
+        "primary": "#9f1239",
+        "primaryDark": "#881337",
+        "primaryLight": "#be123c",
+        "secondary": "#1e293b",
+        "accent": "#f59e0b",
+        "surfaceAlt": "#fff1f2",
+        "headingFont": "'Poppins', sans-serif",
+        "bodyFont": "'Inter', sans-serif"
+      }
+    },
+    {
+      "slug": "coaching",
+      "label": "Coaching Institute",
+      "description": "Course catalog, faculty profiles, admissions & results",
+      "templatePath": "../../demos/coaching/",
+      "dataPath": "../../demos/data/coaching/",
+      "heroImage": "../../demos/coaching/assets/hero.jpg",
+      "navLabel": "Courses",
+      "servicesStyle": "pricing",
+      "theme": {
+        "primary": "#4f46e5",
+        "primaryDark": "#4338ca",
+        "primaryLight": "#6366f1",
+        "secondary": "#1e293b",
+        "accent": "#f59e0b",
+        "surfaceAlt": "#eef2ff",
+        "headingFont": "'Poppins', sans-serif",
+        "bodyFont": "'Inter', sans-serif"
+      }
+    }
+  ]
+}

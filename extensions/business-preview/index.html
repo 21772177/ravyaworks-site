@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Preview Generator | Ravya Works</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="logo" href="../../">Ravya<span>Works</span></a>
+    <nav>
+      <a href="../../">Home</a>
+      <a href="../../portfolio/">Portfolio</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <h4>BUSINESS PREVIEW GENERATOR</h4>
+  <h1>Generate a Live <span>Website Preview</span></h1>
+  <p>Select an industry, fill in your business details, and see a fully rendered demo website in real time.</p>
+</section>
+
+<section class="builder container">
+
+  <div class="form-panel">
+    <h2>Business Details</h2>
+
+    <div class="upload-area">
+      <label>Import from Excel</label>
+      <div class="upload-row">
+        <input type="file" id="excelFile" accept=".xlsx,.xls" hidden>
+        <button class="btn" id="uploadBtn">Choose File</button>
+        <span class="upload-status" id="excelStatus">No file selected</span>
+      </div>
+      <div class="row-nav" id="rowNav" hidden>
+        <button class="btn btn--small" id="prevRow">&#8592; Prev</button>
+        <span id="rowCounter"></span>
+        <button class="btn btn--small" id="nextRow">Next &#8594;</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="industry">Industry</label>
+      <select id="industry"></select>
+    </div>
+
+    <div class="form-group">
+      <label for="businessName">Business Name</label>
+      <input type="text" id="businessName" placeholder="e.g. The Boozy Griffin" value="My Business">
+    </div>
+
+    <div class="form-group">
+      <label for="tagline">Tagline</label>
+      <input type="text" id="tagline" placeholder="e.g. Where Every Meal Feels Like a Celebration" value="We Build Trust, We Deliver Quality">
+    </div>
+
+    <div class="form-group form-group--full">
+      <label for="description">Description</label>
+      <textarea id="description" rows="3" placeholder="Brief description of your business">A trusted name in our industry, serving customers with excellence and care. We are committed to delivering the best experience to every client who walks through our doors.</textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input type="text" id="phone" placeholder="+91 98765 43210" value="+91 98765 43210">
+    </div>
+
+    <div class="form-group form-group--full">
+      <label for="address">Address</label>
+      <input type="text" id="address" placeholder="Full address" value="Bangalore, Karnataka">
+    </div>
+
+    <div class="form-group">
+      <label for="searchArea">Search Area</label>
+      <input type="text" id="searchArea" placeholder="e.g. Indiranagar" value="">
+    </div>
+
+    <div class="form-group">
+      <label for="ratings">Ratings</label>
+      <input type="text" id="ratings" placeholder="e.g. 4.5" value="">
+    </div>
+
+    <div class="form-group">
+      <label for="totalReviews">Total Reviews</label>
+      <input type="text" id="totalReviews" placeholder="e.g. 500+" value="">
+    </div>
+
+    <button class="btn btn--secondary" id="resetBtn">Reset to Defaults</button>
+  </div>
+
+  <div class="preview-panel">
+    <div class="preview-toolbar">
+      <h2>Live Preview</h2>
+      <button class="btn" id="previewBtn">Generate Preview</button>
+    </div>
+    <div class="preview-frame" id="previewFrame">
+      <div class="preview-placeholder">
+        <p>Select an industry and fill in your details, then click <strong>"Generate Preview"</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<section class="outreach container" id="outreachSection" hidden>
+  <div class="outreach-header">
+    <h2>Outreach Message</h2>
+    <p>Copy this message to contact the business on WhatsApp about their preview.</p>
+  </div>
+  <div class="outreach-card">
+    <div class="outreach-message" id="outreachMessage"></div>
+    <div class="outreach-actions">
+      <button class="btn" id="copyMsgBtn">Copy Message</button>
+      <button class="btn" id="sendWaBtn">Send via WhatsApp</button>
+    </div>
+  </div>
+</section>
+
+<section class="github-sync container" id="syncSection" hidden>
+  <div class="sync-header">
+    <h2>GitHub Sync</h2>
+    <p>Sync the contacted status back to your Excel file in the repo.</p>
+  </div>
+  <div class="sync-card">
+    <div class="sync-field">
+      <label for="ghToken">GitHub Token</label>
+      <div class="sync-input-row">
+        <input type="password" id="ghToken" placeholder="ghp_..." value="">
+        <button class="btn btn--small btn--ghost" id="toggleTokenBtn">Show</button>
+      </div>
+    </div>
+    <div class="sync-field">
+      <label for="ghRepo">Repository</label>
+      <input type="text" id="ghRepo" placeholder="owner/repo" value="21772177/ravyaworks-site">
+    </div>
+    <div class="sync-field">
+      <label for="ghPath">Excel File Path</label>
+      <input type="text" id="ghPath" placeholder="path/to/file.xlsx" value="business-data.xlsx">
+    </div>
+    <div class="sync-actions">
+      <button class="btn" id="syncBtn">Sync to GitHub</button>
+      <span class="sync-status" id="syncStatus"></span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Ravya Works. All rights reserved.</p>
+</footer>
+
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<script src="preview.js"></script>
+</body>
+</html>
