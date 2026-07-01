@@ -388,6 +388,7 @@
       "We've created a website preview for " + name + ". Check it out here:\n" +
       previewUrl + "\n\n" +
       "If you'd like to proceed or have any questions, reply here or email us at info@ravyaworks.com\n\n" +
+      "you can get our presence online:\n" +
       "Website: https://ravyaworks.com/\n" +
       "Portfolio: https://ravyaworks.com/portfolio/\n\n" +
       "Best Regards,\nRavya Works Team";
