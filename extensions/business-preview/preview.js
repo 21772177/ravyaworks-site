@@ -501,8 +501,20 @@
   document.getElementById("industry").addEventListener("change", function () {
     if (!this.value) return;
     if (excelRows.length) {
+      var targetSlug = this.value;
       for (var i = 0; i < excelRows.length; i++) {
-        if (excelRows[i].industry && excelRows[i].industry.toLowerCase() === this.value) {
+        var indVal = excelRows[i].industry;
+        if (!indVal) continue;
+        var match = indVal.toLowerCase() === targetSlug;
+        if (!match) {
+          for (var k = 0; k < industries.length; k++) {
+            if (industries[k].slug === targetSlug && industries[k].label.toLowerCase() === indVal.toLowerCase()) {
+              match = true;
+              break;
+            }
+          }
+        }
+        if (match) {
           fillFormFromRow(i);
           return;
         }
