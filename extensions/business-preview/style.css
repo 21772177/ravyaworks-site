@@ -545,6 +545,28 @@ footer {
   color: var(--text-primary);
 }
 
+.preview-expired {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.preview-expired h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.preview-expired p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 480px;
+  line-height: 1.6;
+}
+
 .preview-mode {
   overflow: hidden;
 }

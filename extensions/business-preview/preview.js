@@ -89,7 +89,10 @@
     "total reviews": "totalReviews",
     "totalreviews": "totalReviews",
     "reviews": "totalReviews",
-    "contacted": "contacted"
+    "contacted": "contacted",
+    "response": "response",
+    "status": "response",
+    "outcome": "response"
   };
 
   function normaliseColName(raw) {
@@ -463,12 +466,18 @@
         if (headers.indexOf("Contacted") === -1) {
           headers.push("Contacted");
         }
+        if (headers.indexOf("Response") === -1) {
+          headers.push("Response");
+        }
 
         var updatedJson = json.map(function (row, i) {
           var newRow = {};
           headers.forEach(function (h) { newRow[h] = row[h] !== undefined ? row[h] : ""; });
           if (i < excelRows.length) {
             newRow["Contacted"] = excelRows[i].contacted ? "Yes" : "No";
+            if (excelRows[i].response) {
+              newRow["Response"] = excelRows[i].response;
+            }
           }
           return newRow;
         });
@@ -510,8 +519,10 @@
   function buildPreviewUrl(form) {
     var base = window.location.href.split("#")[0].split("?")[0];
     var name = (form && form.businessName) || document.getElementById("businessName").value.trim();
-    if (!name) return base;
-    return base + "#/p?name=" + encodeURIComponent(name);
+    var ind = document.getElementById("industry").value;
+    if (!name || !ind) return base;
+    var ts = Math.floor(Date.now() / 1000);
+    return base + "#/p?n=" + encodeURIComponent(name) + "&i=" + encodeURIComponent(ind) + "&t=" + ts;
   }
 
   function checkPreviewHash() {
@@ -526,13 +537,28 @@
       params[decodeURIComponent(pair.substring(0, idx))] = decodeURIComponent(pair.substring(idx + 1) || "");
     });
 
-    if (params.name) {
-      document.getElementById("businessName").value = params.name;
-    }
+    if (!params.n || !params.i) return;
 
-    if (!params.name || !document.getElementById("industry").value) return;
+    document.getElementById("businessName").value = params.n;
+
+    var now = Math.floor(Date.now() / 1000);
+    var created = parseInt(params.t, 10) || now;
+    var expired = (now - created) > 172800;
 
     document.body.classList.add("preview-mode");
+
+    if (expired) {
+      var frame = document.getElementById("previewFrame");
+      frame.innerHTML = "<div class=\"preview-placeholder preview-expired\">" +
+        "<h2>Preview Expired</h2>" +
+        "<p>The 48-hour preview window for this business has ended.</p>" +
+        "<p>Please contact Ravya Works for a new preview.</p>" +
+        "</div>";
+      return;
+    }
+
+    var sel = document.getElementById("industry");
+    sel.value = params.i;
     generatePreview();
   }
 
