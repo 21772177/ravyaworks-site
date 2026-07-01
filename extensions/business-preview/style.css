@@ -380,6 +380,78 @@ nav a:hover { color: var(--text-primary); }
   margin-left: 6px;
 }
 
+/* Resend List */
+.resend-list {
+  padding-bottom: 20px;
+}
+
+.resend-header {
+  margin-bottom: 20px;
+}
+
+.resend-header h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.resend-header p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+#resendList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.resend-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+
+.resend-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.resend-info strong {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resend-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.resend-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.resend-actions .btn--small {
+  white-space: nowrap;
+}
+
+#resendSection[hidden] {
+  display: none;
+}
+
 /* GitHub Sync Panel */
 .github-sync {
   padding-bottom: 60px;
@@ -517,6 +589,7 @@ footer {
 .preview-mode .form-panel,
 .preview-mode .preview-toolbar,
 .preview-mode .outreach,
+.preview-mode .resend-list,
 .preview-mode .github-sync,
 .preview-mode footer {
   display: none !important;
@@ -543,28 +616,6 @@ footer {
   min-height: 0;
   background: var(--bg-primary);
   color: var(--text-primary);
-}
-
-.preview-expired {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 12px;
-}
-
-.preview-expired h2 {
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--text-primary);
-}
-
-.preview-expired p {
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  max-width: 480px;
-  line-height: 1.6;
 }
 
 .preview-mode {

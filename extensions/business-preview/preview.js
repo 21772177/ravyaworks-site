@@ -92,7 +92,13 @@
     "contacted": "contacted",
     "response": "response",
     "status": "response",
-    "outcome": "response"
+    "outcome": "response",
+    "no revert": "noRevert",
+    "norevert": "noRevert",
+    "resent": "resent",
+    "preview time": "previewTime",
+    "previewtime": "previewTime",
+    "preview timestamp": "previewTime"
   };
 
   function normaliseColName(raw) {
@@ -123,6 +129,9 @@
           }
           if (row.businessName || row.industry) {
             row.contacted = row.contacted === "Yes" || row.contacted === "yes";
+            row.resent = row.resent === "Yes" || row.resent === "yes";
+            row.noRevert = row.noRevert === "Yes" || row.noRevert === "yes";
+            if (row.previewTime) row.previewTime = parseInt(row.previewTime, 10) || 0;
             excelRows.push(row);
           }
         });
@@ -136,6 +145,7 @@
         setExcelStatus(excelRows.length + " business" + (excelRows.length > 1 ? "es" : "") + " loaded", true);
         document.getElementById("rowNav").hidden = false;
         fillFormFromRow(0);
+        updateResendList();
       } catch (err) {
         setExcelStatus("Error reading file: " + err.message, false);
       }
@@ -469,12 +479,26 @@
         if (headers.indexOf("Response") === -1) {
           headers.push("Response");
         }
+        if (headers.indexOf("Resent") === -1) {
+          headers.push("Resent");
+        }
+        if (headers.indexOf("No Revert") === -1) {
+          headers.push("No Revert");
+        }
+        if (headers.indexOf("Preview Time") === -1) {
+          headers.push("Preview Time");
+        }
 
         var updatedJson = json.map(function (row, i) {
           var newRow = {};
           headers.forEach(function (h) { newRow[h] = row[h] !== undefined ? row[h] : ""; });
           if (i < excelRows.length) {
             newRow["Contacted"] = excelRows[i].contacted ? "Yes" : "No";
+            newRow["Resent"] = excelRows[i].resent ? "Yes" : "No";
+            newRow["No Revert"] = excelRows[i].noRevert ? "Yes" : "No";
+            if (excelRows[i].previewTime) {
+              newRow["Preview Time"] = String(excelRows[i].previewTime);
+            }
             if (excelRows[i].response) {
               newRow["Response"] = excelRows[i].response;
             }
@@ -522,6 +546,9 @@
     var ind = document.getElementById("industry").value;
     if (!name || !ind) return base;
     var ts = Math.floor(Date.now() / 1000);
+    if (excelRows.length && excelCurrentIndex >= 0 && excelCurrentIndex < excelRows.length) {
+      excelRows[excelCurrentIndex].previewTime = ts;
+    }
     return base + "#/p?n=" + encodeURIComponent(name) + "&i=" + encodeURIComponent(ind) + "&t=" + ts;
   }
 
@@ -541,21 +568,15 @@
 
     document.getElementById("businessName").value = params.n;
 
-    var now = Math.floor(Date.now() / 1000);
-    var created = parseInt(params.t, 10) || now;
-    var expired = (now - created) > 172800;
+    if (params.t) {
+      var now = Math.floor(Date.now() / 1000);
+      var created = parseInt(params.t, 10) || now;
+      if (excelRows.length && excelCurrentIndex >= 0 && excelCurrentIndex < excelRows.length) {
+        excelRows[excelCurrentIndex].previewTime = created;
+      }
+    }
 
     document.body.classList.add("preview-mode");
-
-    if (expired) {
-      var frame = document.getElementById("previewFrame");
-      frame.innerHTML = "<div class=\"preview-placeholder preview-expired\">" +
-        "<h2>Preview Expired</h2>" +
-        "<p>The 48-hour preview window for this business has ended.</p>" +
-        "<p>Please contact Ravya Works for a new preview.</p>" +
-        "</div>";
-      return;
-    }
 
     var sel = document.getElementById("industry");
     sel.value = params.i;
@@ -694,6 +715,91 @@
     var sel = document.getElementById("industry");
     if (sel.value) generatePreview();
   });
+
+  /* ---------- Resend list ---------- */
+  function updateResendList() {
+    var list = document.getElementById("resendList");
+    var section = document.getElementById("resendSection");
+    if (!excelRows.length) { section.hidden = true; return; }
+
+    var now = Math.floor(Date.now() / 1000);
+    var cutoff = now - 172800;
+    var items = [];
+
+    for (var i = 0; i < excelRows.length; i++) {
+      var row = excelRows[i];
+      var ts = row.previewTime || 0;
+      if (ts > 0 && ts < cutoff && !row.resent && !row.noRevert) {
+        items.push({ index: i, row: row });
+      }
+    }
+
+    if (!items.length) { section.hidden = true; return; }
+    section.hidden = false;
+
+    var html = "";
+    for (var j = 0; j < items.length; j++) {
+      var item = items[j];
+      var name = item.row.businessName || "Unnamed";
+      var ind = item.row.industry || "";
+      var elapsed = formatElapsed(now - item.row.previewTime);
+      html += "<div class=\"resend-item\">" +
+        "<div class=\"resend-info\">" +
+        "<strong>" + escapeHtml(name) + "</strong>" +
+        "<span class=\"resend-meta\">" + escapeHtml(ind) + " &middot; " + elapsed + "</span>" +
+        "</div>" +
+        "<div class=\"resend-actions\">" +
+        "<button class=\"btn btn--small\" onclick=\"resendBusiness(" + item.index + ")\">Resend</button>" +
+        "<button class=\"btn btn--small btn--secondary\" onclick=\"markNoRevert(" + item.index + ")\">No Revert</button>" +
+        "</div>" +
+        "</div>";
+    }
+    list.innerHTML = html;
+  }
+
+  function formatElapsed(diffSec) {
+    var days = Math.floor(diffSec / 86400);
+    var hours = Math.floor((diffSec % 86400) / 3600);
+    if (days > 0) return days + "d " + hours + "h ago";
+    return hours + "h ago";
+  }
+
+  window.resendBusiness = function (i) {
+    if (i < 0 || i >= excelRows.length) return;
+    var row = excelRows[i];
+    if (row.resent) { alert("Already resent."); return; }
+    if (row.noRevert) { alert("Marked as No Revert."); return; }
+
+    fillFormFromRow(i);
+    setTimeout(function () {
+      var msgEl = document.getElementById("outreachMessage");
+      if (!msgEl || !msgEl.textContent) return;
+      var phone = row.phone || document.getElementById("phone").value;
+      var phoneClean = String(phone).replace(/[^0-9]/g, "");
+      if (!phoneClean) { alert("No phone number for this business."); return; }
+      window.open("https://wa.me/" + phoneClean + "?text=" + encodeURIComponent(msgEl.textContent), "_blank");
+      row.contacted = true;
+      row.resent = true;
+      updateResendList();
+      updateContactedCount();
+    }, 200);
+  };
+
+  window.markNoRevert = function (i) {
+    if (i < 0 || i >= excelRows.length) return;
+    excelRows[i].noRevert = true;
+    excelRows[i].response = "No Revert";
+    updateResendList();
+  };
+
+  setInterval(updateResendList, 60000);
+  updateResendList();
+
+  function escapeHtml(str) {
+    var div = document.createElement("div");
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
 
   /* ---------- GitHub event binding ---------- */
   document.getElementById("toggleTokenBtn").addEventListener("click", function () {
