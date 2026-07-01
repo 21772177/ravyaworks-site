@@ -508,15 +508,9 @@
   /* ---------- Preview URL encoding ---------- */
   function buildPreviewUrl(form) {
     var base = window.location.href.split("#")[0].split("?")[0];
-    var parts = [];
-    if (form.businessName) parts.push("name=" + encodeURIComponent(form.businessName));
-    var ind = document.getElementById("industry").value;
-    if (ind) parts.push("ind=" + encodeURIComponent(ind));
-    if (form.phone) parts.push("phone=" + encodeURIComponent(form.phone));
-    if (form.address) parts.push("addr=" + encodeURIComponent(form.address));
-    if (form.ratings) parts.push("rat=" + encodeURIComponent(form.ratings));
-    if (form.totalReviews) parts.push("rev=" + encodeURIComponent(form.totalReviews));
-    return base + "#/p?" + parts.join("&");
+    var name = (form && form.businessName) || document.getElementById("businessName").value.trim();
+    if (!name) return base;
+    return base + "#/p?name=" + encodeURIComponent(name);
   }
 
   function checkPreviewHash() {
@@ -531,27 +525,11 @@
       params[decodeURIComponent(pair.substring(0, idx))] = decodeURIComponent(pair.substring(idx + 1) || "");
     });
 
-    document.getElementById("businessName").value = "";
-    document.getElementById("tagline").value = "";
-    document.getElementById("description").value = "";
-    document.getElementById("phone").value = "";
-    document.getElementById("address").value = "";
-    document.getElementById("searchArea").value = "";
-    document.getElementById("ratings").value = "";
-    document.getElementById("totalReviews").value = "";
-
-    if (params.name) document.getElementById("businessName").value = params.name;
-    if (params.phone) document.getElementById("phone").value = params.phone;
-    if (params.addr) document.getElementById("address").value = params.addr;
-    if (params.rat) document.getElementById("ratings").value = params.rat;
-    if (params.rev) document.getElementById("totalReviews").value = params.rev;
-
-    if (params.ind) {
-      var sel = document.getElementById("industry");
-      sel.value = params.ind;
+    if (params.name) {
+      document.getElementById("businessName").value = params.name;
     }
 
-    if (!params.ind) return;
+    if (!params.name || !document.getElementById("industry").value) return;
 
     document.body.classList.add("preview-mode");
     generatePreview();
