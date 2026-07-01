@@ -35,13 +35,16 @@
     });
 
   /* ---------- Fetch & parse a template config.js ---------- */
+  var templateCache = {};
+
   function fetchTemplate(slug) {
+    if (templateCache[slug]) return templateCache[slug];
     var ind = industries.filter(function (i) { return i.slug === slug; })[0];
     if (!ind) return Promise.reject(new Error("Unknown industry: " + slug));
     currentIndustry = ind;
 
     var configUrl = ind.templatePath + "config.js";
-    return fetch(configUrl)
+    var promise = fetch(configUrl)
       .then(function (r) {
         if (!r.ok) throw new Error("Failed to fetch " + configUrl);
         return r.text();
@@ -52,6 +55,8 @@
         if (!sandbox.SITE_CONFIG) throw new Error("No SITE_CONFIG found in " + configUrl);
         return sandbox.SITE_CONFIG;
       });
+    templateCache[slug] = promise;
+    return promise;
   }
 
   /* ---------- Excel state ---------- */
@@ -329,7 +334,10 @@
   }
 
   /* ---------- Generate preview ---------- */
+  var isGenerating = false;
+
   function generatePreview() {
+    if (isGenerating) return;
     var previewFrame = document.getElementById("previewFrame");
     var industrySlug = document.getElementById("industry").value;
 
@@ -338,7 +346,8 @@
       return;
     }
 
-    previewFrame.innerHTML = "<div class=\"preview-placeholder\"><p>Loading preview…</p></div>";
+    previewFrame.innerHTML = "<div class=\"preview-placeholder\"><p>Generating preview…</p></div>";
+    isGenerating = true;
 
     fetchTemplate(industrySlug)
       .then(function (template) {
@@ -352,10 +361,12 @@
         iframe.srcdoc = srcdoc;
         iframe.title = "Live Preview — " + merged.business.name;
         previewFrame.appendChild(iframe);
+        isGenerating = false;
       })
       .catch(function (err) {
         previewFrame.innerHTML = "<div class=\"preview-placeholder\"><p>Could not generate preview. " +
           esc(err.message) + "</p></div>";
+        isGenerating = false;
       });
 
     updateOutreach();
