@@ -3,6 +3,8 @@
 
   var industries = [];
   var currentIndustry = null;
+  var industriesReady = false;
+  var pendingExcelFile = null;
 
   /* ---------- Load industry metadata ---------- */
   fetch("industries.json")
@@ -22,6 +24,11 @@
         frag.appendChild(opt);
       });
       select.appendChild(frag);
+      industriesReady = true;
+      if (pendingExcelFile) {
+        handleExcelFile(pendingExcelFile);
+        pendingExcelFile = null;
+      }
     })
     .catch(function (err) {
       console.error("Failed to load industries.json", err);
@@ -136,12 +143,22 @@
 
     if (row.industry) {
       var sel = document.getElementById("industry");
+      var matchVal = "";
       for (var i = 0; i < sel.options.length; i++) {
         if (sel.options[i].value === row.industry.toLowerCase()) {
-          sel.value = row.industry.toLowerCase();
+          matchVal = sel.options[i].value;
           break;
         }
       }
+      if (!matchVal) {
+        for (var j = 0; j < industries.length; j++) {
+          if (industries[j].label.toLowerCase() === row.industry.toLowerCase()) {
+            matchVal = industries[j].slug;
+            break;
+          }
+        }
+      }
+      if (matchVal) sel.value = matchVal;
     }
 
   if (row.businessName) document.getElementById("businessName").value = row.businessName;
@@ -503,6 +520,11 @@
 
   document.getElementById("excelFile").addEventListener("change", function () {
     if (this.files && this.files[0]) {
+      if (!industriesReady) {
+        pendingExcelFile = this.files[0];
+        setExcelStatus("Loading industries, please wait…", false);
+        return;
+      }
       handleExcelFile(this.files[0]);
     }
   });
