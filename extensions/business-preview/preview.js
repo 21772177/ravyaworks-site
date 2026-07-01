@@ -362,6 +362,8 @@
         iframe.title = "Live Preview — " + merged.business.name;
         previewFrame.appendChild(iframe);
         isGenerating = false;
+
+        updateOutreach(form);
       })
       .catch(function (err) {
         previewFrame.innerHTML = "<div class=\"preview-placeholder\"><p>Could not generate preview. " +
@@ -369,12 +371,12 @@
         isGenerating = false;
       });
 
-    updateOutreach();
+    updateOutreach(getFormData());
   }
 
   /* ---------- Outreach message ---------- */
-  function buildOutreachMessage() {
-    var name = document.getElementById("businessName").value.trim() || "there";
+  function buildOutreachMessage(form) {
+    var name = (form && form.businessName) || document.getElementById("businessName").value.trim() || "there";
     var pageUrl = window.location.href;
 
     return "Hi " + name + ",\n" +
@@ -389,8 +391,8 @@
       "Best Regards,\nRavya Works Team";
   }
 
-  function updateOutreach() {
-    var msg = buildOutreachMessage();
+  function updateOutreach(form) {
+    var msg = buildOutreachMessage(form);
     document.getElementById("outreachMessage").textContent = msg;
     document.getElementById("outreachSection").hidden = false;
   }
