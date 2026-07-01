@@ -384,15 +384,12 @@
     var name = (form && form.businessName) || document.getElementById("businessName").value.trim() || "there";
     var previewUrl = buildPreviewUrl(form || getFormData());
 
-    return "Hi " + name + ",\n" +
-      "We have created a preview website for " + name + ", which is missing in your online presence. Check this out:\n\n" +
+    return "Hi " + name + ",\n\n" +
+      "We've created a website preview for " + name + ". Check it out here:\n" +
       previewUrl + "\n\n" +
-      "If you like what you see and would like to proceed, simply reply to this message or contact us:\n" +
-      "info@ravyaworks.com\n\n" +
-      "you can check our presence online :\n\n" +
+      "If you'd like to proceed or have any questions, reply here or email us at info@ravyaworks.com\n\n" +
       "Website: https://ravyaworks.com/\n" +
       "Portfolio: https://ravyaworks.com/portfolio/\n\n" +
-      "We look forward to helping you build your online presence!\n\n" +
       "Best Regards,\nRavya Works Team";
   }
 
@@ -512,21 +509,21 @@
   function buildPreviewUrl(form) {
     var base = window.location.href.split("#")[0].split("?")[0];
     var parts = [];
-    for (var key in form) {
-      if (form[key]) {
-        parts.push(encodeURIComponent(key) + "=" + encodeURIComponent(form[key]));
-      }
-    }
+    if (form.businessName) parts.push("name=" + encodeURIComponent(form.businessName));
     var ind = document.getElementById("industry").value;
-    if (ind) parts.push("industry=" + encodeURIComponent(ind));
-    return base + "#/preview?" + parts.join("&");
+    if (ind) parts.push("ind=" + encodeURIComponent(ind));
+    if (form.phone) parts.push("phone=" + encodeURIComponent(form.phone));
+    if (form.address) parts.push("addr=" + encodeURIComponent(form.address));
+    if (form.ratings) parts.push("rat=" + encodeURIComponent(form.ratings));
+    if (form.totalReviews) parts.push("rev=" + encodeURIComponent(form.totalReviews));
+    return base + "#/p?" + parts.join("&");
   }
 
   function checkPreviewHash() {
     var hash = window.location.hash;
-    if (hash.indexOf("#/preview?") !== 0) return;
+    if (hash.indexOf("#/p?") !== 0) return;
 
-    var qs = hash.substring("#/preview?".length);
+    var qs = hash.substring("#/p?".length);
     var params = {};
     qs.split("&").forEach(function (pair) {
       var idx = pair.indexOf("=");
@@ -543,21 +540,18 @@
     document.getElementById("ratings").value = "";
     document.getElementById("totalReviews").value = "";
 
-    if (params.businessName) document.getElementById("businessName").value = params.businessName;
-    if (params.tagline) document.getElementById("tagline").value = params.tagline;
-    if (params.description) document.getElementById("description").value = params.description;
+    if (params.name) document.getElementById("businessName").value = params.name;
     if (params.phone) document.getElementById("phone").value = params.phone;
-    if (params.address) document.getElementById("address").value = params.address;
-    if (params.searchArea) document.getElementById("searchArea").value = params.searchArea;
-    if (params.ratings) document.getElementById("ratings").value = params.ratings;
-    if (params.totalReviews) document.getElementById("totalReviews").value = params.totalReviews;
+    if (params.addr) document.getElementById("address").value = params.addr;
+    if (params.rat) document.getElementById("ratings").value = params.rat;
+    if (params.rev) document.getElementById("totalReviews").value = params.rev;
 
-    if (params.industry) {
+    if (params.ind) {
       var sel = document.getElementById("industry");
-      sel.value = params.industry;
+      sel.value = params.ind;
     }
 
-    if (!params.industry) return;
+    if (!params.ind) return;
 
     document.body.classList.add("preview-mode");
     generatePreview();
@@ -713,7 +707,7 @@
   loadSyncSettings();
 
   /* ---------- Check for preview URL hash ---------- */
-  var hasPreviewHash = window.location.hash.indexOf("#/preview?") === 0;
+  var hasPreviewHash = window.location.hash.indexOf("#/p?") === 0;
   if (industriesReady && hasPreviewHash) {
     checkPreviewHash();
   } else if (hasPreviewHash) {
