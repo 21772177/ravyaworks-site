@@ -510,3 +510,46 @@ footer {
     min-height: 400px;
   }
 }
+
+/* ---------- Preview Mode (shared URL) ---------- */
+.preview-mode header,
+.preview-mode .hero,
+.preview-mode .form-panel,
+.preview-mode .preview-toolbar,
+.preview-mode .outreach,
+.preview-mode .github-sync,
+.preview-mode footer {
+  display: none !important;
+}
+
+.preview-mode .builder {
+  display: block;
+  padding: 0;
+}
+
+.preview-mode .preview-frame {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+}
+
+.preview-mode .preview-placeholder {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  min-height: 0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.preview-mode {
+  overflow: hidden;
+}
+
+.preview-mode .container {
+  max-width: none;
+  padding: 0;
+}

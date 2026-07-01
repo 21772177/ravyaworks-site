@@ -5,6 +5,7 @@
   var currentIndustry = null;
   var industriesReady = false;
   var pendingExcelFile = null;
+  var pendingPreviewHash = false;
 
   /* ---------- Load industry metadata ---------- */
   fetch("industries.json")
@@ -28,6 +29,10 @@
       if (pendingExcelFile) {
         handleExcelFile(pendingExcelFile);
         pendingExcelFile = null;
+      }
+      if (pendingPreviewHash) {
+        checkPreviewHash();
+        pendingPreviewHash = false;
       }
     })
     .catch(function (err) {
@@ -377,11 +382,11 @@
   /* ---------- Outreach message ---------- */
   function buildOutreachMessage(form) {
     var name = (form && form.businessName) || document.getElementById("businessName").value.trim() || "there";
-    var pageUrl = window.location.href;
+    var previewUrl = buildPreviewUrl(form || getFormData());
 
     return "Hi " + name + ",\n" +
       "We have created a preview website for " + name + ", which is missing in your online presence. Check this out:\n\n" +
-      pageUrl + "\n\n" +
+      previewUrl + "\n\n" +
       "If you like what you see and would like to proceed, simply reply to this message or contact us:\n" +
       "info@ravyaworks.com\n\n" +
       "you can check our presence online :\n\n" +
@@ -501,6 +506,61 @@
       .catch(function (err) {
         setSyncStatus(err.message, "error");
       });
+  }
+
+  /* ---------- Preview URL encoding ---------- */
+  function buildPreviewUrl(form) {
+    var base = window.location.href.split("#")[0].split("?")[0];
+    var parts = [];
+    for (var key in form) {
+      if (form[key]) {
+        parts.push(encodeURIComponent(key) + "=" + encodeURIComponent(form[key]));
+      }
+    }
+    var ind = document.getElementById("industry").value;
+    if (ind) parts.push("industry=" + encodeURIComponent(ind));
+    return base + "#/preview?" + parts.join("&");
+  }
+
+  function checkPreviewHash() {
+    var hash = window.location.hash;
+    if (hash.indexOf("#/preview?") !== 0) return;
+
+    var qs = hash.substring("#/preview?".length);
+    var params = {};
+    qs.split("&").forEach(function (pair) {
+      var idx = pair.indexOf("=");
+      if (idx === -1) return;
+      params[decodeURIComponent(pair.substring(0, idx))] = decodeURIComponent(pair.substring(idx + 1) || "");
+    });
+
+    document.getElementById("businessName").value = "";
+    document.getElementById("tagline").value = "";
+    document.getElementById("description").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("address").value = "";
+    document.getElementById("searchArea").value = "";
+    document.getElementById("ratings").value = "";
+    document.getElementById("totalReviews").value = "";
+
+    if (params.businessName) document.getElementById("businessName").value = params.businessName;
+    if (params.tagline) document.getElementById("tagline").value = params.tagline;
+    if (params.description) document.getElementById("description").value = params.description;
+    if (params.phone) document.getElementById("phone").value = params.phone;
+    if (params.address) document.getElementById("address").value = params.address;
+    if (params.searchArea) document.getElementById("searchArea").value = params.searchArea;
+    if (params.ratings) document.getElementById("ratings").value = params.ratings;
+    if (params.totalReviews) document.getElementById("totalReviews").value = params.totalReviews;
+
+    if (params.industry) {
+      var sel = document.getElementById("industry");
+      sel.value = params.industry;
+    }
+
+    if (!params.industry) return;
+
+    document.body.classList.add("preview-mode");
+    generatePreview();
   }
 
   /* ---------- Utility ---------- */
@@ -651,5 +711,13 @@
   document.getElementById("syncBtn").addEventListener("click", syncToGitHub);
 
   loadSyncSettings();
+
+  /* ---------- Check for preview URL hash ---------- */
+  var hasPreviewHash = window.location.hash.indexOf("#/preview?") === 0;
+  if (industriesReady && hasPreviewHash) {
+    checkPreviewHash();
+  } else if (hasPreviewHash) {
+    pendingPreviewHash = true;
+  }
 
 })();
