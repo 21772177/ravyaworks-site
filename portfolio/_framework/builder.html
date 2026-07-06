@@ -165,7 +165,7 @@ label{display:block;font-weight:600;font-size:.85rem;margin-bottom:5px}
 // Presets
 var PRESETS={};
 function loadPreset(name){
-  fetch(name+'/config.js').then(function(r){return r.text()}).then(function(txt){
+  fetch('../../demos/'+name+'/config.js').then(function(r){return r.text()}).then(function(txt){
     eval(txt);var c=window.SITE_CONFIG;
     if(!c)return;
     gv('b_name',c.business.name);gv('b_tagline',c.business.tagline);gv('b_industry',c.business.industry);gv('b_est',c.business.established);
