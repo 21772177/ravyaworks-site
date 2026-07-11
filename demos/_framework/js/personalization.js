@@ -70,55 +70,63 @@
   /* ─── URL PARAM MODE (?n=Business+Name&i=industry) ─── */
   var bizParams = readBizParams();
 
-  /* Load config.js → merge → app.js in guaranteed order via dynamic scripts */
-  var configEl = document.createElement("script");
-  configEl.src = "config.js";
-  configEl.onload = function () {
-    /* Merge real business data from URL params into SITE_CONFIG */
-    var c = window.SITE_CONFIG;
-    if (c) {
-      if (bizParams.n) {
-        c.business.name = bizParams.n;
-        c.business.tagline = "";
-        c.seo.description = bizParams.n;
-        c.seo.keywords = preset + ", " + bizParams.n;
-        c.hero.heading = "Welcome to <span class=\"accent\">" + escHtml(bizParams.n) + "</span>";
-        c.hero.subheading = "";
-        if (c.about) {
-          c.about.title = "About " + bizParams.n;
-          c.about.paragraphs = [bizParams.n + " is a trusted " + preset + " in the area. We are committed to delivering quality and exceptional service to every customer."];
-          c.about.footerBlurb = c.about.paragraphs[0];
-        }
-        c.ctaBand.title = "Get in Touch with " + bizParams.n;
-      }
-      if (bizParams.p) {
-        c.contact.phone = bizParams.p;
-        var digits = bizParams.p.replace(/[^0-9]/g, "");
-        c.contact.whatsapp = "XXXX" + digits.slice(-4);
-      }
-      if (bizParams.n) {
-        var slug = bizParams.n.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-        c.contact.email = "hello@" + slug + ".com";
-      }
-      if (bizParams.a) {
-        c.contact.address = c.contact.address || {};
-        c.contact.address.full = bizParams.a;
-      }
-      if (bizParams.r || bizParams.rev) {
-        if (c.about) {
-          c.about.stats = (c.about.stats || []).filter(function (s) { return s.label !== "Rating" && s.label !== "Reviews"; });
-          if (bizParams.r) c.about.stats.unshift({ value: bizParams.r + "\u2605", label: "Rating" });
-          if (bizParams.rev) c.about.stats.push({ value: bizParams.rev, label: "Reviews" });
-        }
-      }
-    }
-    /* Now load app.js — it reads the merged SITE_CONFIG */
-    var appEl = document.createElement("script");
-    appEl.src = urlBase + "js/app.js";
-    document.body.appendChild(appEl);
-  };
-  document.body.appendChild(configEl);
-  return;
+  /* Fetch config.js synchronously (safe during HTML parse), merge data, inject inline */
+  var cfgXhr = new XMLHttpRequest();
+  cfgXhr.open("GET", "config.js", false);
+  try { cfgXhr.send(); } catch (_) {}
+
+  if (cfgXhr.status === 200) {
+    var cfgText = cfgXhr.responseText
+      .replace(/<\/script>/gi, "<\\/script>")
+      .replace(/<!--/g, "<\\!--");
+
+    var mergeCode =
+      "var c = window.SITE_CONFIG;\n" +
+      "if (c) {\n" +
+      "var p = " + JSON.stringify(bizParams) + ";\n" +
+      "var ind = " + JSON.stringify(preset) + ";\n" +
+      "if (p.n) {\n" +
+      "  c.business.name = p.n;\n" +
+      "  c.business.tagline = '';\n" +
+      "  c.seo.description = p.n;\n" +
+      "  c.seo.keywords = ind + ', ' + p.n;\n" +
+      "  c.hero.heading = 'Welcome to <span class=\"accent\">' + p.n + '</span>';\n" +
+      "  c.hero.subheading = '';\n" +
+      "  if (c.about) {\n" +
+      "    c.about.title = 'About ' + p.n;\n" +
+      "    c.about.paragraphs = [p.n + ' is a trusted ' + ind + ' in the area. We are committed to delivering quality and exceptional service to every customer.'];\n" +
+      "    c.about.footerBlurb = c.about.paragraphs[0];\n" +
+      "  }\n" +
+      "  c.ctaBand.title = 'Get in Touch with ' + p.n;\n" +
+      "}\n" +
+      "if (p.p) {\n" +
+      "  c.contact.phone = p.p;\n" +
+      "  var d = p.p.replace(/[^0-9]/g, '');\n" +
+      "  c.contact.whatsapp = 'XXXX' + d.slice(-4);\n" +
+      "}\n" +
+      "if (p.n) {\n" +
+      "  var s = p.n.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');\n" +
+      "  c.contact.email = 'hello@' + s + '.com';\n" +
+      "}\n" +
+      "if (p.a) { c.contact.address = c.contact.address || {}; c.contact.address.full = p.a; }\n" +
+      "if (p.r || p.rev) {\n" +
+      "  if (c.about) {\n" +
+      "    c.about.stats = (c.about.stats || []).filter(function(x){ return x.label !== 'Rating' && x.label !== 'Reviews'; });\n" +
+      "    if (p.r) c.about.stats.unshift({ value: p.r + '\\u2605', label: 'Rating' });\n" +
+      "    if (p.rev) c.about.stats.push({ value: p.rev, label: 'Reviews' });\n" +
+      "  }\n" +
+      "}\n" +
+      "}\n";
+
+    document.write('<script>\n' + cfgText + '\n' + mergeCode + '<' + '/script>');
+  } else {
+    /* Fallback: minimal config from URL params */
+    document.write('<script>\n' +
+      'window.SITE_CONFIG=' + JSON.stringify(fallbackConfig(bizParams.n || "Business", preset)) + ';\n' +
+      '<' + '/script>');
+  }
+
+  document.write('<script src="' + urlBase + 'js/app.js"><\/script>');
 
 
   /* ============================================================
