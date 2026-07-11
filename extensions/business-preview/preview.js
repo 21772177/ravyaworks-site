@@ -392,29 +392,15 @@
     updateOutreach(getFormData());
   }
 
-  /* ---------- URL shortening via TinyURL ---------- */
-  function shortenUrl(url) {
-    try {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", "https://tinyurl.com/api-create.php?url=" + encodeURIComponent(url), false);
-      xhr.send();
-      if (xhr.status === 200 && xhr.responseText && xhr.responseText.indexOf("http") === 0) {
-        return xhr.responseText.trim();
-      }
-    } catch (_) {}
-    return url;
-  }
-
   /* ---------- Outreach message ---------- */
   function buildOutreachMessage(form) {
     var name = (form && form.businessName) || document.getElementById("businessName").value.trim() || "there";
     var demoUrl = buildPreviewUrl(form || getFormData());
-    var shortUrl = shortenUrl(demoUrl);
 
     return "Hi " + name + ",\n\n" +
       "We've created a personalized website preview for " + name + ".\n\n" +
       "You can view it here:\n" +
-      shortUrl + "\n\n" +
+      demoUrl + "\n\n" +
       "If you have any questions or would like to proceed, simply reply to this message or email us at info@ravyaworks.com.\n\n" +
       "Explore our work:\n\n" +
       "\uD83C\uDF10 Website: https://ravyaworks.com/\n" +
