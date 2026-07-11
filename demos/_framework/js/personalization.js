@@ -93,7 +93,15 @@
     '    c.about.footerBlurb = c.about.paragraphs[0];\n' +
     '    c.ctaBand.title = "Get in Touch with ' + escHtml(bizName) + '";\n' +
     '  }\n' +
-    '  if (p.p) { c.contact.phone = p.p; c.contact.whatsapp = p.p; }\n' +
+    '  if (p.p) {\n' +
+    '    c.contact.phone = p.p;\n' +
+    '    var digits = p.p.replace(/[^0-9]/g, "");\n' +
+    '    c.contact.whatsapp = "XXXX" + digits.slice(-4);\n' +
+    '  }\n' +
+    '  if (p.n) {\n' +
+    '    var slug = p.n.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");\n' +
+    '    c.contact.email = "hello@" + slug + ".com";\n' +
+    '  }\n' +
     '  if (p.a) { c.contact.address = c.contact.address || {}; c.contact.address.full = p.a; }\n' +
     '  if (p.r || p.rev) {\n' +
     '    c.about.stats = (c.about.stats || []).filter(function(s){ return s.label !== "Rating" && s.label !== "Reviews"; });\n' +
