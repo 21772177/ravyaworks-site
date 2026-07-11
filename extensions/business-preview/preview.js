@@ -315,7 +315,7 @@
       "  <script>\n" +
       "    (function() {\n" +
       "      var msg = " + waMsgJson + ";\n" +
-      "      var phone = '919503196964';\n" +
+      "      var phone = '919480196964';\n" +
       "      var waLink = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg);\n" +
       "      function updateLinks() {\n" +
       "        document.querySelectorAll('[href*=\"wa.me\"]').forEach(function(a) {\n" +

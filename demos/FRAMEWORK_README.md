@@ -152,7 +152,7 @@ Already built into `_framework/css/theme.css`. Set `data-preset` on `<body>` in 
 
 Every site built from this framework includes two lead-capture widgets that route prospects to RavyaWorks:
 
-1. **Floating WhatsApp button** (bottom-right) → opens `wa.me/919503196964` with the message: *"Hi RavyaWorks! I saw the [Business] demo and I need a similar website."*
+1. **Floating WhatsApp button** (bottom-right) → opens `wa.me/919480196964` with the message: *"Hi RavyaWorks! I saw the [Business] demo and I need a similar website."*
 2. **"Request Similar Website" ribbon** (bottom, appears after 4s) → links to `ravyaworks.com/contact`
 
 These are hardcoded in `_framework/js/app.js` so they're correct on every demo automatically. To change the RavyaWorks phone/domain, edit the `RW` constant at the top of `app.js`.

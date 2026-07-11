@@ -15,7 +15,7 @@
      Hardcoded so EVERY demo routes prospects back to RavyaWorks.
      Change here once if RavyaWorks phone/domain changes.        */
   var RW = {
-    phone: "919503196964",          // wa.me format (country code + number)
+    phone: "919480196964",          // wa.me format (country code + number)
     domain: "https://ravyaworks.com",
     contactPage: "https://ravyaworks.com/contact",
     shortName: "RavyaWorks"
