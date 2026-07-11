@@ -543,15 +543,28 @@
 
   /* ---------- Preview URL encoding ---------- */
   function buildPreviewUrl(form) {
-    var base = window.location.href.split("#")[0].split("?")[0];
-    var name = (form && form.businessName) || document.getElementById("businessName").value.trim();
+    form = form || getFormData();
+    var name = form.businessName || document.getElementById("businessName").value.trim();
     var ind = document.getElementById("industry").value;
-    if (!name || !ind) return base;
+    if (!name || !ind) return window.location.href.split("#")[0].split("?")[0];
+
     var ts = Math.floor(Date.now() / 1000);
     if (excelRows.length && excelCurrentIndex >= 0 && excelCurrentIndex < excelRows.length) {
       excelRows[excelCurrentIndex].previewTime = ts;
     }
-    return base + "#/p?n=" + encodeURIComponent(name) + "&i=" + encodeURIComponent(ind) + "&t=" + ts;
+
+    /* Build personalized demo site URL with real business data */
+    var demoBase = "https://ravyaworks.com/demos/" + ind + "/";
+    var qs = "n=" + encodeURIComponent(name);
+    if (form.phone) qs += "&p=" + encodeURIComponent(form.phone);
+    if (form.address) {
+      var fullAddr = (form.searchArea ? form.searchArea + ", " : "") + form.address;
+      qs += "&a=" + encodeURIComponent(fullAddr);
+    }
+    if (form.ratings) qs += "&r=" + encodeURIComponent(form.ratings);
+    if (form.totalReviews) qs += "&rev=" + encodeURIComponent(form.totalReviews);
+
+    return demoBase + "?" + qs;
   }
 
   function checkPreviewHash() {

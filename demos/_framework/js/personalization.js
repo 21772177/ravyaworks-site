@@ -1,20 +1,26 @@
 /* ============================================================
    RAVYAWORKS PERSONALIZATION ENGINE — personalization.js
    Replaces the config.js + app.js loading pair with a smart
-   loader that supports both static and personalized modes.
+   loader that supports three modes:
 
-   STATIC mode   (no ?client= param):
+   STATIC mode   (no ?client= and no ?n= param):
      Loads the industry's existing config.js normally, then
      loads app.js.  Identical behaviour to the original two-
      script loading — 100 % backward compatible.
 
-   PERSONALIZED mode   (?client=some-business):
+   CLIENT mode   (?client=some-business):
      Reads the client slug from the URL, fetches the
      corresponding JSON from data/{industry}/{client}.json,
      builds a SITE_CONFIG object, then loads app.js.
 
-   Fallback: if the JSON fetch fails the page still renders
-   with a minimal skeleton (business name from slug, default
+   URL PARAM mode (?n=Business+Name&i=industry):
+     Loads the industry's default config.js for theme/services/
+     gallery/testimonials, then merges real business data
+     (name, phone, address, rating, reviews) from URL params.
+     Used by the business preview outreach links.
+
+   Fallback: if fetching fails the page still renders
+   with a minimal skeleton (business name from params, default
    theme from data-preset).
    ============================================================ */
 (function () {
@@ -22,42 +28,109 @@
 
   var params    = new URLSearchParams(location.search);
   var client    = params.get("client");
+  var bizName   = params.get("n");
   var preset    = document.body.getAttribute("data-preset") || "";
   var urlBase   = "../_framework/";
 
+  /* ─── Determine mode ─── */
+  var hasBizParams = !!(bizName && preset);
+
   /* ─── STATIC MODE (backward compatible) ─── */
-  if (!client) {
+  if (!client && !hasBizParams) {
     document.write('<script src="config.js"><\/script>');
     document.write('<script src="' + urlBase + 'js/app.js"><\/script>');
-    return;   // ⛔ rest of this file is for personalized mode only
+    return;
   }
 
-  /* ─── PERSONALIZED MODE ─── */
-  var jsonUrl = "../data/" + preset + "/" + encodeURIComponent(client) + ".json";
+  /* ─── CLIENT MODE (?client=slug → JSON file) ─── */
+  if (client) {
+    var jsonUrl = "../data/" + preset + "/" + encodeURIComponent(client) + ".json";
 
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", jsonUrl, false);   // synchronous — safe during HTML parse
-  try { xhr.send(); } catch (_) {}
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", jsonUrl, false);
+    try { xhr.send(); } catch (_) {}
 
-  if (xhr.status === 200) {
-    try {
-      var raw = JSON.parse(xhr.responseText);
-      window.SITE_CONFIG = buildConfig(raw, preset);
-    } catch (e) {
-      console.warn("[Personalization] Failed to parse JSON for", client, e);
+    if (xhr.status === 200) {
+      try {
+        var raw = JSON.parse(xhr.responseText);
+        window.SITE_CONFIG = buildConfig(raw, preset);
+      } catch (e) {
+        console.warn("[Personalization] Failed to parse JSON for", client, e);
+        window.SITE_CONFIG = fallbackConfig(client, preset);
+      }
+    } else {
+      console.warn("[Personalization] Could not load", jsonUrl, "(" + xhr.status + ")");
       window.SITE_CONFIG = fallbackConfig(client, preset);
     }
-  } else {
-    console.warn("[Personalization] Could not load", jsonUrl, "(" + xhr.status + ")");
-    window.SITE_CONFIG = fallbackConfig(client, preset);
+
+    document.write('<script src="' + urlBase + 'js/app.js"><\/script>');
+    return;
   }
 
+  /* ─── URL PARAM MODE (?n=Business+Name&i=industry) ─── */
+  var bizParams = readBizParams();
+
+  /* 1. Inject config.js → sets window.SITE_CONFIG with demo content + theme */
+  document.write('<script src="config.js"><\/script>');
+
+  /* 2. Merge real business data from URL params into SITE_CONFIG */
+  var mergeScript =
+    '<script>\n' +
+    '(function(){\n' +
+    '  var c = window.SITE_CONFIG;\n' +
+    '  if (!c) return;\n' +
+    '  var p = ' + JSON.stringify(bizParams) + ';\n' +
+    '  var ind = ' + JSON.stringify(preset) + ';\n' +
+    '  if (p.n) {\n' +
+    '    c.business.name = p.n;\n' +
+    '    c.business.tagline = "";\n' +
+    '    c.seo.description = p.n;\n' +
+    '    c.seo.keywords = ind + ", " + p.n;\n' +
+    '    c.hero.heading = "Welcome to <span class=\\\"accent\\\">' + escHtml(bizName) + '</span>";\n' +
+    '    c.hero.subheading = "";\n' +
+    '    c.about.title = "About ' + escHtml(bizName) + '";\n' +
+    '    c.about.paragraphs = ["' + escHtml(bizName) + ' is a trusted ' + escHtml(preset) + ' in the area. We are committed to delivering quality and exceptional service to every customer."];\n' +
+    '    c.about.footerBlurb = c.about.paragraphs[0];\n' +
+    '    c.ctaBand.title = "Get in Touch with ' + escHtml(bizName) + '";\n' +
+    '  }\n' +
+    '  if (p.p) { c.contact.phone = p.p; c.contact.whatsapp = p.p; }\n' +
+    '  if (p.a) { c.contact.address = c.contact.address || {}; c.contact.address.full = p.a; }\n' +
+    '  if (p.r || p.rev) {\n' +
+    '    c.about.stats = (c.about.stats || []).filter(function(s){ return s.label !== "Rating" && s.label !== "Reviews"; });\n' +
+    '    if (p.r) c.about.stats.unshift({ value: p.r + "\\u2605", label: "Rating" });\n' +
+    '    if (p.rev) c.about.stats.push({ value: p.rev, label: "Reviews" });\n' +
+    '  }\n' +
+    '})();\n' +
+    '<' + '/script>';
+
+  document.write(mergeScript);
+
+  /* 3. Load app.js → reads the merged SITE_CONFIG and renders */
   document.write('<script src="' + urlBase + 'js/app.js"><\/script>');
 
 
   /* ============================================================
      helpers
      ============================================================ */
+
+  /** Read business data from URL query parameters. */
+  function readBizParams() {
+    var out = {};
+    var map = { n: "n", p: "p", a: "a", r: "r", rev: "rev" };
+    Object.keys(map).forEach(function (k) {
+      var v = params.get(k);
+      if (v) out[map[k]] = v;
+    });
+    return out;
+  }
+
+  /** Basic HTML-entity escape for user-supplied strings. */
+  function escHtml(s) {
+    if (!s) return "";
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  /* ── CLIENT MODE helpers (unchanged) ── */
 
   /** Build a full SITE_CONFIG from a JSON data object. */
   function buildConfig(data, ind) {
@@ -214,11 +287,5 @@
     return slug.split(/[-_]/).map(function (w) {
       return w.charAt(0).toUpperCase() + w.slice(1);
     }).join(" ");
-  }
-
-  /** Basic HTML-entity escape for user-supplied strings. */
-  function escHtml(s) {
-    if (!s) return "";
-    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 })();
