@@ -198,6 +198,7 @@
       "Row " + (index + 1) + " of " + excelRows.length + badge;
 
     document.getElementById("syncSection").hidden = false;
+    document.getElementById("platformSection").hidden = false;
 
     updateContactedCount();
     generatePreview();
@@ -436,6 +437,159 @@
       repo: document.getElementById("ghRepo").value,
       path: document.getElementById("ghPath").value
     }));
+  }
+
+  /* ---------- Platform Connection ---------- */
+  function loadPlatformSettings() {
+    try {
+      var s = JSON.parse(localStorage.getItem("bp_platform") || "{}");
+      if (s.url) document.getElementById("platformUrl").value = s.url;
+      if (s.key) document.getElementById("platformKey").value = s.key;
+    } catch (e) {}
+  }
+
+  function savePlatformSettings() {
+    localStorage.setItem("bp_platform", JSON.stringify({
+      url: document.getElementById("platformUrl").value,
+      key: document.getElementById("platformKey").value
+    }));
+  }
+
+  function setPlatformStatus(msg, type) {
+    var el = document.getElementById("platformStatus");
+    el.textContent = msg;
+    el.className = "platform-status" + (type ? " " + type : "");
+  }
+
+  function setSubmitStatus(msg, type) {
+    var el = document.getElementById("platformSubmitStatus");
+    var icon = el.querySelector(".platform-status-icon");
+    var text = el.querySelector(".platform-status-text");
+    el.hidden = false;
+    el.className = "platform-submit-status" + (type ? " " + type : "");
+    if (type === "loading") {
+      icon.textContent = "\u23F3";
+    } else if (type === "success") {
+      icon.textContent = "\u2713";
+    } else {
+      icon.textContent = "\u2717";
+    }
+    text.textContent = msg;
+  }
+
+  function testPlatformConnection() {
+    var url = document.getElementById("platformUrl").value.trim();
+    var key = document.getElementById("platformKey").value.trim();
+
+    if (!url || !key) {
+      setPlatformStatus("Fill in API endpoint and key.", "error");
+      return;
+    }
+
+    savePlatformSettings();
+    setPlatformStatus("Testing connection\u2026", "loading");
+
+    var testUrl = url.replace(/\/$/, "") + "/api-keys";
+
+    fetch(testUrl, {
+      method: "GET",
+      headers: {
+        "Authorization": "Bearer " + key,
+        "Content-Type": "application/json"
+      }
+    })
+      .then(function (r) {
+        if (r.status === 401) throw new Error("Authentication failed. Check your API key.");
+        if (r.status === 404) throw new Error("Endpoint not found. Check the API URL.");
+        if (!r.ok) throw new Error("Connection failed (" + r.status + ")");
+        return r.json();
+      })
+      .then(function (data) {
+        setPlatformStatus("Connected successfully!", "success");
+      })
+      .catch(function (err) {
+        setPlatformStatus(err.message, "error");
+      });
+  }
+
+  function submitToPlatform() {
+    var url = document.getElementById("platformUrl").value.trim();
+    var key = document.getElementById("platformKey").value.trim();
+
+    if (!url || !key) {
+      setSubmitStatus("Configure platform connection first.", "error");
+      return;
+    }
+
+    var form = getFormData();
+    if (!form.businessName) {
+      setSubmitStatus("Business name is required.", "error");
+      return;
+    }
+
+    var phone = form.phone ? form.phone.replace(/[^0-9+]/g, "") : "";
+    if (!phone) {
+      setSubmitStatus("Phone number is required for platform submission.", "error");
+      return;
+    }
+
+    var message = buildOutreachMessage(form);
+    var previewUrl = buildPreviewUrl(form);
+    var ind = document.getElementById("industry").value;
+
+    var payload = {
+      businessName: form.businessName,
+      phone: phone,
+      personalizedMessage: message,
+      previewUrl: previewUrl,
+      industry: ind || undefined,
+      contactPerson: undefined,
+      campaignName: ind ? ind.charAt(0).toUpperCase() + ind.slice(1) + " Outreach" : undefined,
+      metadata: {
+        source: "business-preview-generator",
+        searchArea: form.searchArea || undefined,
+        ratings: form.ratings || undefined,
+        totalReviews: form.totalReviews || undefined
+      }
+    };
+
+    savePlatformSettings();
+    setSubmitStatus("Submitting to platform\u2026", "loading");
+
+    var submitUrl = url.replace(/\/$/, "") + "/";
+
+    fetch(submitUrl, {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + key,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) {
+        return r.json().then(function (body) {
+          return { status: r.status, body: body };
+        });
+      })
+      .then(function (res) {
+        if (res.status === 401) throw new Error("Authentication failed. Check your API key.");
+        if (res.status === 404) throw new Error("Endpoint not found. Check the API URL.");
+        if (res.status === 422 && res.body.data && res.body.data.errors) {
+          var errs = res.body.data.errors.map(function (e) { return e.message; }).join("; ");
+          throw new Error("Validation error: " + errs);
+        }
+        if (!res.body.success) throw new Error(res.body.error || "Submission failed");
+        var data = res.body.data;
+        var parts = ["Submitted successfully!"];
+        if (data.campaignId) parts.push("Campaign: " + data.campaignId.substring(0, 8) + "\u2026");
+        if (data.businesses && data.businesses[0] && data.businesses[0].campaignBusinessId) {
+          parts.push("Job: " + data.businesses[0].campaignBusinessId.substring(0, 8) + "\u2026");
+        }
+        setSubmitStatus(parts.join(" | "), "success");
+      })
+      .catch(function (err) {
+        setSubmitStatus(err.message, "error");
+      });
   }
 
   function setSyncStatus(msg, type) {
@@ -829,6 +983,23 @@
   document.getElementById("syncBtn").addEventListener("click", syncToGitHub);
 
   loadSyncSettings();
+
+  /* ---------- Platform Connection event binding ---------- */
+  document.getElementById("togglePlatformKeyBtn").addEventListener("click", function () {
+    var input = document.getElementById("platformKey");
+    if (input.type === "password") {
+      input.type = "text";
+      this.textContent = "Hide";
+    } else {
+      input.type = "password";
+      this.textContent = "Show";
+    }
+  });
+
+  document.getElementById("testPlatformBtn").addEventListener("click", testPlatformConnection);
+  document.getElementById("submitPlatformBtn").addEventListener("click", submitToPlatform);
+
+  loadPlatformSettings();
 
   /* ---------- Check for preview URL hash ---------- */
   var hasPreviewHash = window.location.hash.indexOf("#/p?") === 0;

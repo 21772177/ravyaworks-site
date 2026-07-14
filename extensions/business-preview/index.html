@@ -116,6 +116,11 @@
     <div class="outreach-actions">
       <button class="btn" id="copyMsgBtn">Copy Message</button>
       <button class="btn" id="sendWaBtn">Send via WhatsApp</button>
+      <button class="btn btn--platform" id="submitPlatformBtn">Submit to Platform</button>
+    </div>
+    <div class="platform-submit-status" id="platformSubmitStatus" hidden>
+      <span class="platform-status-icon"></span>
+      <span class="platform-status-text"></span>
     </div>
   </div>
 </section>
@@ -152,6 +157,30 @@
     <div class="sync-actions">
       <button class="btn" id="syncBtn">Sync to GitHub</button>
       <span class="sync-status" id="syncStatus"></span>
+    </div>
+  </div>
+</section>
+
+<section class="platform-connection container" id="platformSection" hidden>
+  <div class="platform-header">
+    <h2>Conversation Platform</h2>
+    <p>Connect to the Ravya Conversation Platform to submit outreach messages for automated campaign execution, queue management, and delivery tracking.</p>
+  </div>
+  <div class="platform-card">
+    <div class="platform-field">
+      <label for="platformUrl">API Endpoint</label>
+      <input type="text" id="platformUrl" placeholder="https://api.conversation-platform.com/api/v1/outreach" value="">
+    </div>
+    <div class="platform-field">
+      <label for="platformKey">API Key</label>
+      <div class="sync-input-row">
+        <input type="password" id="platformKey" placeholder="oci_..." value="">
+        <button class="btn btn--small btn--ghost" id="togglePlatformKeyBtn">Show</button>
+      </div>
+    </div>
+    <div class="platform-actions">
+      <button class="btn" id="testPlatformBtn">Test Connection</button>
+      <span class="platform-status" id="platformStatus"></span>
     </div>
   </div>
 </section>

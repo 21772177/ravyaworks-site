@@ -583,6 +583,130 @@ footer {
   }
 }
 
+/* Platform Connection Panel */
+.platform-connection {
+  padding-bottom: 60px;
+}
+
+.platform-header {
+  margin-bottom: 20px;
+}
+
+.platform-header h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.platform-header p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.platform-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 28px;
+}
+
+.platform-field {
+  margin-bottom: 16px;
+}
+
+.platform-field label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.platform-field input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  transition: border-color 0.2s;
+}
+
+.platform-field input:focus {
+  outline: none;
+  border-color: var(--border-focus);
+}
+
+.platform-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.platform-status {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.platform-status.success {
+  color: #22c55e;
+}
+
+.platform-status.error {
+  color: #ef4444;
+}
+
+.platform-status.loading {
+  color: var(--accent);
+}
+
+/* Submit to Platform Button */
+.btn--platform {
+  background: #8b5cf6;
+}
+
+.btn--platform:hover {
+  background: #7c3aed;
+}
+
+/* Platform Submit Status */
+.platform-submit-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  margin-top: 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.platform-submit-status.success {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #22c55e;
+}
+
+.platform-submit-status.error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+}
+
+.platform-submit-status.loading {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: var(--accent);
+}
+
+.platform-submit-status.hidden {
+  display: none;
+}
+
 /* ---------- Preview Mode (shared URL) ---------- */
 .preview-mode header,
 .preview-mode .hero,
@@ -591,6 +715,7 @@ footer {
 .preview-mode .outreach,
 .preview-mode .resend-list,
 .preview-mode .github-sync,
+.preview-mode .platform-connection,
 .preview-mode footer {
   display: none !important;
 }
