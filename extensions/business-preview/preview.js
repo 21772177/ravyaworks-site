@@ -398,15 +398,13 @@
     var demoUrl = buildPreviewUrl(form || getFormData());
 
     return "Hi " + name + ",\n\n" +
-      "We've created a personalized website preview for " + name + ".\n\n" +
-      "You can view it here:\n" +
+      "We came across your business online and noticed that you don't currently have a dedicated website. To help you visualize your online presence, we've created a personalized website preview tailored specifically for " + name + ".\n\n" +
+      "You can view your preview here:\n" +
       demoUrl + "\n\n" +
-      "If you have any questions or would like to proceed, simply reply to this message or email us at info@ravyaworks.com.\n\n" +
-      "Explore our work:\n\n" +
-      "\uD83C\uDF10 Website: https://ravyaworks.com/\n" +
-      "\uD83D\uDCBC Portfolio: https://ravyaworks.com/portfolio/\n\n" +
-      "Best regards,\n\n" +
-      "Ravya Works Team";
+      "If you'd like a website like this for your business or have any questions, simply reply to this message or email us at info@ravyaworks.com.\n\n" +
+      "Explore our work:\n" +
+      "\uD83C\uDF10 Website: https://ravyaworks.com/\n\n" +
+      "Best regards,\nRavya Works Team";
   }
 
   function updateOutreach(form) {
