@@ -512,6 +512,17 @@
       });
   }
 
+  function toE164(raw) {
+    if (!raw) return "";
+    var digits = raw.replace(/[^0-9]/g, "");
+    if (!digits) return "";
+    if (raw.charAt(0) === "+") return "+" + digits;
+    if (digits.length === 10) return "+91" + digits;
+    if (digits.length === 11 && digits.charAt(0) === "0") return "+91" + digits.slice(1);
+    if (digits.length === 12 && digits.startsWith("91")) return "+" + digits;
+    return "+" + digits;
+  }
+
   function submitToPlatform() {
     var url = document.getElementById("platformUrl").value.trim();
     var key = document.getElementById("platformKey").value.trim();
@@ -527,7 +538,7 @@
       return;
     }
 
-    var phone = form.phone ? form.phone.replace(/[^0-9+]/g, "") : "";
+    var phone = toE164(form.phone);
     if (!phone) {
       setSubmitStatus("Phone number is required for platform submission.", "error");
       return;
