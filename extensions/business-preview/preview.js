@@ -554,10 +554,13 @@
       personalizedMessage: message,
       previewUrl: previewUrl,
       industry: ind || undefined,
-      contactPerson: undefined,
+      contactPerson: form.contactPerson || undefined,
       campaignName: ind ? ind.charAt(0).toUpperCase() + ind.slice(1) + " Outreach" : undefined,
       metadata: {
         source: "business-preview-generator",
+        tagline: form.tagline || undefined,
+        description: form.description || undefined,
+        address: form.address || undefined,
         searchArea: form.searchArea || undefined,
         ratings: form.ratings || undefined,
         totalReviews: form.totalReviews || undefined
