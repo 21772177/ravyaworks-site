@@ -204,6 +204,37 @@
     generatePreview();
   }
 
+  /* ---------- Search business by name ---------- */
+  function searchBusinessByName() {
+    var input = document.getElementById("searchBusiness");
+    var statusEl = document.getElementById("searchStatus");
+    statusEl.className = "search-status";
+
+    var query = input.value.trim();
+    if (!query) {
+      statusEl.textContent = "Type a business name to search.";
+      return;
+    }
+    if (!excelRows.length) {
+      statusEl.textContent = "No Excel data loaded. Upload a file first.";
+      return;
+    }
+
+    var q = query.toLowerCase();
+    for (var i = 0; i < excelRows.length; i++) {
+      var name = (excelRows[i].businessName || "").toLowerCase();
+      if (name.indexOf(q) !== -1) {
+        fillFormFromRow(i);
+        statusEl.textContent = "Found: " + excelRows[i].businessName;
+        statusEl.className = "search-status found";
+        return;
+      }
+    }
+
+    statusEl.textContent = "No business found matching \"" + query + "\".";
+    statusEl.className = "search-status not-found";
+  }
+
   /* ---------- Read form data ---------- */
   function getFormData() {
     return {
@@ -824,6 +855,15 @@
   document.getElementById("nextRow").addEventListener("click", function () {
     if (excelRows.length && excelCurrentIndex < excelRows.length - 1) {
       fillFormFromRow(excelCurrentIndex + 1);
+    }
+  });
+
+  /* ---------- Search event binding ---------- */
+  document.getElementById("searchBtn").addEventListener("click", searchBusinessByName);
+  document.getElementById("searchBusiness").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      searchBusinessByName();
     }
   });
 

@@ -257,6 +257,35 @@ nav a:hover { color: var(--text-primary); }
   color: var(--text-primary);
 }
 
+/* Search Business */
+.search-area {
+  margin-top: 4px;
+}
+
+.search-row {
+  display: flex;
+  gap: 8px;
+}
+
+.search-row input {
+  flex: 1;
+}
+
+.search-status {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.search-status.found {
+  color: #22c55e;
+}
+
+.search-status.not-found {
+  color: #ef4444;
+}
+
 /* Preview Panel */
 .preview-panel {
   display: flex;
