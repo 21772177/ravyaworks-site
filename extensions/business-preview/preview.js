@@ -476,7 +476,8 @@
     var slug = buildSlug(form.businessName);
     var json = buildPreviewJson(form, industrySlug);
     var path = "demos/data/" + industrySlug + "/" + slug + ".json";
-    var apiUrl = "https://api.github.com/repos/" + encodeURIComponent(repo) + "/contents/" + encodeURIComponent(path);
+    var apiUrl = "https://api.github.com/repos/" + repo + "/contents/" +
+      path.split("/").map(function (s) { return encodeURIComponent(s); }).join("/");
     var content = btoa(unescape(encodeURIComponent(JSON.stringify(json, null, 2))));
 
     setSaveStatus("Saving preview data to repo\u2026", "");
@@ -761,7 +762,8 @@
     saveSyncSettings();
     setSyncStatus("Fetching file from GitHub…", "");
 
-    var apiUrl = "https://api.github.com/repos/" + encodeURIComponent(repo) + "/contents/" + encodeURIComponent(path);
+    var apiUrl = "https://api.github.com/repos/" + repo + "/contents/" +
+      path.split("/").map(function (s) { return encodeURIComponent(s); }).join("/");
 
     fetch(apiUrl, {
       headers: { "Authorization": "token " + token, "Accept": "application/vnd.github.v3+json" }
