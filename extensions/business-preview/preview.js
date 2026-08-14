@@ -414,7 +414,7 @@
         isGenerating = false;
 
         updateOutreach(form);
-        savePreviewJson(form, industrySlug);
+        savePreviewJson(form, industrySlug, template);
       })
       .catch(function (err) {
         previewFrame.innerHTML = "<div class=\"preview-placeholder\"><p>Could not generate preview. " +
@@ -434,9 +434,10 @@
       .slice(0, 60) || "business";
   }
 
-  function buildPreviewJson(form, industrySlug) {
+  function buildPreviewJson(form, industrySlug, template) {
     var ind = industries.filter(function (i) { return i.slug === industrySlug; })[0] || {};
     var fullAddr = (form.searchArea ? form.searchArea + ", " : "") + (form.address || "");
+    template = template || {};
     return {
       businessName: form.businessName,
       industry: ind.label || industrySlug,
@@ -455,17 +456,17 @@
       googleRating: form.ratings,
       reviewCount: form.totalReviews,
       businessHours: {},
-      serviceOptions: [],
-      socialLinks: {},
-      services: [],
-      gallery: [],
-      reviews: [],
-      team: [],
-      faq: []
+      serviceOptions: template.hero && template.hero.quick ? template.hero.quick.slice(0, 4) : [],
+      socialLinks: template.social || {},
+      services: template.services && template.services.items ? template.services.items : [],
+      gallery: template.gallery || [],
+      reviews: template.testimonials || [],
+      team: template.team || [],
+      faq: template.faq || []
     };
   }
 
-  function savePreviewJson(form, industrySlug) {
+  function savePreviewJson(form, industrySlug, template) {
     var token = document.getElementById("ghToken").value.trim();
     var repo = document.getElementById("ghRepo").value.trim();
     if (!token || !repo) {
@@ -474,7 +475,7 @@
     }
 
     var slug = buildSlug(form.businessName);
-    var json = buildPreviewJson(form, industrySlug);
+    var json = buildPreviewJson(form, industrySlug, template);
     var path = "demos/data/" + industrySlug + "/" + slug + ".json";
     var apiUrl = "https://api.github.com/repos/" + repo + "/contents/" +
       path.split("/").map(function (s) { return encodeURIComponent(s); }).join("/");
