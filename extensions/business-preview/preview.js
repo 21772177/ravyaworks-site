@@ -505,7 +505,11 @@
         });
       })
       .then(function (r) {
-        if (!r.ok) throw new Error("Push failed (" + r.status + ")");
+        if (!r.ok) {
+          return r.json().then(function (body) {
+            throw new Error(r.status + ": " + (body.message || "Push failed"));
+          });
+        }
         setSaveStatus("Preview data saved — short link is live!", "ok");
       })
       .catch(function (err) {
