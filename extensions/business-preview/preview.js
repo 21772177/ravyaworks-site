@@ -567,6 +567,10 @@
     }));
   }
 
+  document.getElementById("ghToken").addEventListener("input", saveSyncSettings);
+  document.getElementById("ghRepo").addEventListener("input", saveSyncSettings);
+  document.getElementById("ghPath").addEventListener("input", saveSyncSettings);
+
   /* ---------- Platform Connection ---------- */
   function loadPlatformSettings() {
     try {
