@@ -1,0 +1,137 @@
+{
+  "businessName": "Archana Tuitions",
+  "industry": "School",
+  "slug": "archana-tuitions",
+  "tagline": "We Build Trust, We Deliver Quality",
+  "description": "A trusted name in our industry, serving customers with excellence and care. We are committed to delivering the best experience to every client who walks through our doors.",
+  "heroImage": "",
+  "theme": "school",
+  "phone": "088840 10012",
+  "email": "",
+  "address": "Whitefield, Bengaluru, Sanjeevani Pebbled Apartment, 408, Borewell Rd, Palm Meadows, Narulahalli, Whitefield, Bengaluru, Karnataka 560066, India",
+  "city": "",
+  "state": "",
+  "pincode": "",
+  "googleMaps": "",
+  "googleRating": "5",
+  "reviewCount": "21",
+  "businessHours": {},
+  "serviceOptions": [
+    "CBSE Affiliated Curriculum",
+    "Smart, Tech-Enabled Classrooms",
+    "85+ Expert Educators",
+    "Sports, Arts & Life Skills"
+  ],
+  "socialLinks": {
+    "facebook": "#",
+    "instagram": "#",
+    "twitter": "#",
+    "youtube": "#"
+  },
+  "services": [
+    {
+      "title": "Kindergarten",
+      "tag": "Pre-Primary",
+      "description": "A joyful, play-based foundation for ages 3-5, focusing on language, motor skills, social-emotional growth and a lifelong love for learning.",
+      "image": "assets/svc-kindergarten.jpg"
+    },
+    {
+      "title": "Primary School",
+      "tag": "Grades 1-5",
+      "description": "Activity-driven CBSE learning that builds strong literacy, numeracy and curiosity through discovery, storytelling and hands-on projects.",
+      "image": "assets/svc-primary.jpg"
+    },
+    {
+      "title": "Middle School",
+      "tag": "Grades 6-8",
+      "description": "Concept-led teaching in Science, Maths, Humanities and languages, with labs, coding clubs and critical-thinking at its core.",
+      "image": "assets/svc-middle.jpg"
+    },
+    {
+      "title": "High School",
+      "tag": "Grades 9-12",
+      "description": "Focused board preparation across Science, Commerce and Humanities streams with mentoring, career counselling and proven results.",
+      "image": "assets/svc-high.jpg"
+    },
+    {
+      "title": "Smart Classes",
+      "tag": "Tech-Enabled",
+      "description": "Interactive digital classrooms, smart boards and blended learning tools that make every lesson visual, engaging and easy to grasp.",
+      "image": "assets/svc-smart.jpg"
+    },
+    {
+      "title": "Sports & Arts",
+      "tag": "Beyond Academics",
+      "description": "Cricket, football, athletics, music, dance, art and drama — because a truly bright mind thrives in a healthy, expressive body.",
+      "image": "assets/svc-sports.jpg"
+    }
+  ],
+  "gallery": [
+    "assets/gallery-1.jpg",
+    "assets/gallery-2.jpg",
+    "assets/gallery-3.jpg",
+    "assets/gallery-4.jpg",
+    "assets/gallery-5.jpg",
+    "assets/gallery-6.jpg"
+  ],
+  "reviews": [
+    {
+      "name": "Lakshmi Venkatesh",
+      "role": "Parent (Grade 4)",
+      "rating": 5,
+      "text": "The teachers genuinely care. My daughter has blossomed here — confident, curious and excited to go to school every single day. Couldn't ask for more.",
+      "avatar": ""
+    },
+    {
+      "name": "Mohammed Arif",
+      "role": "Parent (Grade 10)",
+      "rating": 5,
+      "text": "My son scored 96% in his boards. The mentoring and doubt-clearing sessions in high school are exceptional. Truly grateful to the faculty.",
+      "avatar": ""
+    },
+    {
+      "name": "Sunita Reddy",
+      "role": "Parent (Grade 1 & 7)",
+      "rating": 5,
+      "text": "Both my kids study here. Smart classes, safe campus and such warm teachers. It feels like a second home for our family.",
+      "avatar": ""
+    },
+    {
+      "name": "Gopinath Nair",
+      "role": "Alumni Parent",
+      "rating": 5,
+      "text": "My elder daughter graduated in 2019 and is now in engineering college. The foundation she got here was outstanding. Worth every rupee.",
+      "avatar": ""
+    },
+    {
+      "name": "Fathima Sheikh",
+      "role": "Parent (Kindergarten)",
+      "rating": 5,
+      "text": "The Kindergarten program is pure magic — so much play, art and care. My son settled in within a week. Highly recommend Bright Future!",
+      "avatar": ""
+    }
+  ],
+  "team": [],
+  "faq": [
+    {
+      "q": "What is the admission process?",
+      "a": "Fill out the enquiry form on our website or visit the school office. We'll schedule a campus tour and an interaction session. Admission is confirmed after document verification and fee payment."
+    },
+    {
+      "q": "What curriculum does the school follow?",
+      "a": "We are affiliated to CBSE, New Delhi. Our curriculum blends the NCERT framework with smart-class technology and experiential learning."
+    },
+    {
+      "q": "Is transport facility available?",
+      "a": "Yes, we operate GPS-tracked school buses covering all major routes in Jayanagar, BTM Layout, JP Nagar and Koramangala."
+    },
+    {
+      "q": "What extracurricular activities are offered?",
+      "a": "We offer cricket, football, athletics, basketball, music, dance, art, drama, robotics club and quiz club. Inter-school competitions are held throughout the year."
+    },
+    {
+      "q": "Are there remedial classes for struggling students?",
+      "a": "Yes, we provide free remedial sessions after school hours for students who need extra support in any subject."
+    }
+  ]
+}
