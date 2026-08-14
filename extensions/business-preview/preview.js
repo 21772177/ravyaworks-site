@@ -414,6 +414,7 @@
         isGenerating = false;
 
         updateOutreach(form);
+        savePreviewJson(form, industrySlug);
       })
       .catch(function (err) {
         previewFrame.innerHTML = "<div class=\"preview-placeholder\"><p>Could not generate preview. " +
@@ -422,6 +423,102 @@
       });
 
     updateOutreach(getFormData());
+  }
+
+  /* ---------- Short-link preview data ---------- */
+  function buildSlug(name) {
+    return String(name || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 60) || "business";
+  }
+
+  function buildPreviewJson(form, industrySlug) {
+    var ind = industries.filter(function (i) { return i.slug === industrySlug; })[0] || {};
+    var fullAddr = (form.searchArea ? form.searchArea + ", " : "") + (form.address || "");
+    return {
+      businessName: form.businessName,
+      industry: ind.label || industrySlug,
+      slug: buildSlug(form.businessName),
+      tagline: form.tagline,
+      description: form.description,
+      heroImage: "",
+      theme: industrySlug,
+      phone: form.phone,
+      email: "",
+      address: fullAddr,
+      city: "",
+      state: "",
+      pincode: "",
+      googleMaps: "",
+      googleRating: form.ratings,
+      reviewCount: form.totalReviews,
+      businessHours: {},
+      serviceOptions: [],
+      socialLinks: {},
+      services: [],
+      gallery: [],
+      reviews: [],
+      team: [],
+      faq: []
+    };
+  }
+
+  function savePreviewJson(form, industrySlug) {
+    var token = document.getElementById("ghToken").value.trim();
+    var repo = document.getElementById("ghRepo").value.trim();
+    if (!token || !repo) {
+      setSaveStatus("GitHub token not set — using long link.", "warn");
+      return;
+    }
+
+    var slug = buildSlug(form.businessName);
+    var json = buildPreviewJson(form, industrySlug);
+    var path = "demos/data/" + industrySlug + "/" + slug + ".json";
+    var apiUrl = "https://api.github.com/repos/" + encodeURIComponent(repo) + "/contents/" + encodeURIComponent(path);
+    var content = btoa(unescape(encodeURIComponent(JSON.stringify(json, null, 2))));
+
+    setSaveStatus("Saving preview data to repo\u2026", "");
+
+    fetch(apiUrl, {
+      headers: { "Authorization": "token " + token, "Accept": "application/vnd.github.v3+json" }
+    })
+      .then(function (r) {
+        if (r.status === 200) return r.json().then(function (d) { return d.sha; });
+        return null;
+      })
+      .then(function (sha) {
+        var body = {
+          message: "Add preview data for " + form.businessName,
+          content: content
+        };
+        if (sha) body.sha = sha;
+        return fetch(apiUrl, {
+          method: "PUT",
+          headers: {
+            "Authorization": "token " + token,
+            "Accept": "application/vnd.github.v3+json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(body)
+        });
+      })
+      .then(function (r) {
+        if (!r.ok) throw new Error("Push failed (" + r.status + ")");
+        setSaveStatus("Preview data saved — short link is live!", "ok");
+      })
+      .catch(function (err) {
+        setSaveStatus("Could not save preview data: " + err.message, "err");
+      });
+  }
+
+  function setSaveStatus(msg, type) {
+    var el = document.getElementById("saveStatus");
+    if (!el) return;
+    el.hidden = false;
+    el.textContent = msg;
+    el.className = "save-status" + (type ? " " + type : "");
   }
 
   /* ---------- Outreach message ---------- */
@@ -750,7 +847,14 @@
       excelRows[excelCurrentIndex].previewTime = ts;
     }
 
-    /* Build personalized demo site URL with real business data */
+    /* Short link via saved JSON (demos/data/{industry}/{slug}.json) */
+    var token = document.getElementById("ghToken").value.trim();
+    var repo = document.getElementById("ghRepo").value.trim();
+    if (token && repo) {
+      return "https://ravyaworks.com/demos/" + ind + "/?client=" + buildSlug(name);
+    }
+
+    /* Fallback: long personalized URL with real business data */
     var demoBase = "https://ravyaworks.com/demos/" + ind + "/";
     var qs = "n=" + encodeURIComponent(name);
     if (form.phone) qs += "&p=" + encodeURIComponent(form.phone);

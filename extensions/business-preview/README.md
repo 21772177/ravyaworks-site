@@ -25,6 +25,20 @@ extensions/business-preview/
 
 Open `extensions/business-preview/index.html` in a browser (served via any HTTP server).
 
+## Short Preview Links
+
+When a preview is generated, the business data is saved as a JSON file at
+`demos/data/{industry}/{slug}.json` (via the configured GitHub token/repo).
+The outreach message then uses a short branded link instead of the long query
+string:
+
+```
+https://ravyaworks.com/demos/school/?client=basil-woods-juniors-whitefield
+```
+
+If no GitHub token is configured, the extension falls back to the long
+`?n=&p=&a=` link automatically.
+
 ## Design Principles
 
 - **Read-only access**: The extension reads existing project files but never writes to them.
