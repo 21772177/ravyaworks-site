@@ -46,21 +46,38 @@
   if (client) {
     var jsonUrl = "../data/" + preset + "/" + encodeURIComponent(client) + ".json";
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", jsonUrl, false);
-    try { xhr.send(); } catch (_) {}
+    var jxhr = new XMLHttpRequest();
+    jxhr.open("GET", jsonUrl, false);
+    try { jxhr.send(); } catch (_) {}
 
-    if (xhr.status === 200) {
-      try {
-        var raw = JSON.parse(xhr.responseText);
-        window.SITE_CONFIG = buildConfig(raw, preset);
-      } catch (e) {
+    var raw = null;
+    if (jxhr.status === 200) {
+      try { raw = JSON.parse(jxhr.responseText); } catch (e) {
         console.warn("[Personalization] Failed to parse JSON for", client, e);
-        window.SITE_CONFIG = fallbackConfig(client, preset);
       }
     } else {
-      console.warn("[Personalization] Could not load", jsonUrl, "(" + xhr.status + ")");
+      console.warn("[Personalization] Could not load", jsonUrl, "(" + jxhr.status + ")");
+    }
+
+    /* Load the full template config.js first (theme, services, gallery,
+       reviews, FAQ, hours, social), then override with the business JSON.
+       This mirrors the preview builder: every business gets ALL pages. */
+    var cfgXhr = new XMLHttpRequest();
+    cfgXhr.open("GET", "config.js", false);
+    try { cfgXhr.send(); } catch (_) {}
+
+    if (cfgXhr.status === 200) {
+      var cfgText = cfgXhr.responseText
+        .replace(/<\/script>/gi, "<\\/script>")
+        .replace(/<!--/g, "<\\!--");
+      var mergeCode = buildClientMergeCode(raw, client, preset);
+      document.write('<script>\n' + cfgText + '\n' + mergeCode + '<' + '/script>');
+    } else if (raw) {
+      window.SITE_CONFIG = buildConfig(raw, preset);
+      document.write('<script>window.SITE_CONFIG=' + JSON.stringify(window.SITE_CONFIG) + '<' + '/script>');
+    } else {
       window.SITE_CONFIG = fallbackConfig(client, preset);
+      document.write('<script>window.SITE_CONFIG=' + JSON.stringify(window.SITE_CONFIG) + '<' + '/script>');
     }
 
     document.write('<script src="' + urlBase + 'js/app.js"><\/script>');
@@ -307,5 +324,73 @@
     return slug.split(/[-_]/).map(function (w) {
       return w.charAt(0).toUpperCase() + w.slice(1);
     }).join(" ");
+  }
+
+  /** Generate JS that merges a business JSON onto the full template config.
+      The template provides all pages; the JSON only overrides business data. */
+  function buildClientMergeCode(raw, client, preset) {
+    if (!raw) {
+      return "var c = window.SITE_CONFIG;\n" +
+        "if (c) { c.business.name = " + JSON.stringify(formatName(client)) + "; }\n";
+    }
+    var d = JSON.stringify(raw);
+    var ind = JSON.stringify(preset);
+    return "var c = window.SITE_CONFIG;\n" +
+      "if (c) {\n" +
+      "var d = " + d + ";\n" +
+      "var ind = " + ind + ";\n" +
+      "if (d.businessName) {\n" +
+      "  c.business.name = d.businessName;\n" +
+      "  c.business.industry = d.industry || c.business.industry || ind;\n" +
+      "  c.seo.description = d.description || d.businessName;\n" +
+      "  c.seo.keywords = (d.industry || ind) + ', ' + d.businessName;\n" +
+      "  c.hero.heading = 'Welcome to <span class=\"accent\">' + d.businessName + '</span>';\n" +
+      "  c.hero.subheading = d.tagline || d.description || c.hero.subheading;\n" +
+      "  if (c.about) {\n" +
+      "    c.about.title = 'About ' + d.businessName;\n" +
+      "    if (d.description) {\n" +
+      "      c.about.paragraphs = [d.description];\n" +
+      "      c.about.footerBlurb = d.description;\n" +
+      "    }\n" +
+      "  }\n" +
+      "  if (c.ctaBand) c.ctaBand.title = 'Get in Touch with ' + d.businessName;\n" +
+      "}\n" +
+      "if (d.tagline) c.business.tagline = d.tagline;\n" +
+      "if (d.phone) {\n" +
+      "  c.contact = c.contact || {};\n" +
+      "  c.contact.phone = d.phone;\n" +
+      "  c.contact.whatsapp = d.phone;\n" +
+      "}\n" +
+      "if (d.email) { c.contact = c.contact || {}; c.contact.email = d.email; }\n" +
+      "if (d.address) {\n" +
+      "  c.contact = c.contact || {};\n" +
+      "  c.contact.address = c.contact.address || {};\n" +
+      "  c.contact.address.full = d.address;\n" +
+      "}\n" +
+      "if (d.heroImage) { c.hero = c.hero || {}; c.hero.images = [d.heroImage]; c.seo.ogImage = d.heroImage; }\n" +
+      "if (d.serviceOptions && d.serviceOptions.length) {\n" +
+      "  c.hero = c.hero || {};\n" +
+      "  c.hero.quick = d.serviceOptions.slice(0, 4);\n" +
+      "}\n" +
+      "if (d.googleRating || d.reviewCount) {\n" +
+      "  if (c.about) {\n" +
+      "    c.about.stats = (c.about.stats || []).filter(function (x) { return x.label !== 'Rating' && x.label !== 'Reviews'; });\n" +
+      "    if (d.googleRating) c.about.stats.unshift({ value: d.googleRating + '\\u2605', label: 'Rating' });\n" +
+      "    if (d.reviewCount) c.about.stats.push({ value: d.reviewCount, label: 'Reviews' });\n" +
+      "  }\n" +
+      "}\n" +
+      "if (d.services && d.services.length) {\n" +
+      "  c.services = c.services || { style: 'cards', items: [] };\n" +
+      "  c.services.items = d.services;\n" +
+      "}\n" +
+      "if (d.gallery && d.gallery.length) c.gallery = d.gallery;\n" +
+      "if (d.reviews && d.reviews.length) c.testimonials = d.reviews;\n" +
+      "if (d.team && d.team.length) c.team = d.team;\n" +
+      "if (d.faq && d.faq.length) c.faq = d.faq;\n" +
+      "if (d.socialLinks && d.socialLinks.facebook) c.social = d.socialLinks;\n" +
+      "if (d.businessHours) {\n" +
+      "  c.hours = Object.keys(d.businessHours).map(function (k) { return { day: k, time: d.businessHours[k] }; });\n" +
+      "}\n" +
+      "}\n";
   }
 })();
