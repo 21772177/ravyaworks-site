@@ -1,0 +1,150 @@
+{
+  "businessName": "Mandipete Palav, Vijayanagara",
+  "industry": "Restaurant",
+  "slug": "mandipete-palav-vijayanagara",
+  "tagline": "We Build Trust, We Deliver Quality",
+  "description": "A trusted name in our industry, serving customers with excellence and care. We are committed to delivering the best experience to every client who walks through our doors.",
+  "heroImage": "",
+  "theme": "restaurant",
+  "phone": "098801 81640",
+  "email": "",
+  "address": "Vijayanagar, Bengaluru, 905/A, 5th main road, Service Rd, near samrat kadamba hotel, SBI Staff Colony, Hoshalli Extension, Stage 1, Vijayanagar, Bengaluru, Karnataka 560040, India",
+  "city": "",
+  "state": "",
+  "pincode": "",
+  "googleMaps": "",
+  "googleRating": "4.2",
+  "reviewCount": "703",
+  "businessHours": {},
+  "serviceOptions": [
+    "Pure Veg & Non-Veg",
+    "Family Friendly Dining",
+    "Direct Online Ordering",
+    "Catering Available"
+  ],
+  "socialLinks": {
+    "facebook": "#",
+    "instagram": "#",
+    "twitter": "#",
+    "youtube": "#"
+  },
+  "services": [
+    {
+      "title": "Paneer Butter Masala",
+      "price": "₹280",
+      "tag": "Veg",
+      "description": "Cottage cheese cubes simmered in a rich tomato-butter gravy with a hint of cream and kasuri methi.",
+      "image": "assets/dish-paneer.jpg"
+    },
+    {
+      "title": "Chicken Tikka Masala",
+      "price": "₹340",
+      "tag": "Bestseller",
+      "description": "Char-grilled chicken tikka folded into a smoky, aromatic onion-tomato masala. Our #1 seller.",
+      "image": "assets/dish-chicken.jpg"
+    },
+    {
+      "title": "Hyderabadi Veg Biryani",
+      "price": "₹260",
+      "tag": "Veg",
+      "description": "Long-grain basmati layered with spiced vegetables, saffron and fried onions, dum-cooked to perfection.",
+      "image": "assets/dish-biryani.jpg"
+    },
+    {
+      "title": "Mutton Rogan Josh",
+      "price": "₹420",
+      "tag": "Chef's Special",
+      "description": "Slow-cooked tender mutton in a traditional Kashmiri red gravy with whole spices.",
+      "image": "assets/dish-mutton.jpg"
+    },
+    {
+      "title": "Garlic Butter Naan",
+      "price": "₹70",
+      "tag": "Veg",
+      "description": "Soft tandoor-baked bread brushed with garlic, butter and fresh coriander.",
+      "image": "assets/dish-naan.jpg"
+    },
+    {
+      "title": "Gulab Jamun with Ice Cream",
+      "price": "₹140",
+      "tag": "Dessert",
+      "description": "Warm golden dumplings in cardamom syrup, served with a scoop of vanilla bean ice cream.",
+      "image": "assets/dish-dessert.jpg"
+    }
+  ],
+  "gallery": [
+    "assets/gallery-1.jpg",
+    "assets/gallery-2.jpg",
+    "assets/gallery-3.jpg",
+    "assets/gallery-4.jpg",
+    "assets/gallery-5.jpg",
+    "assets/gallery-6.jpg"
+  ],
+  "reviews": [
+    {
+      "name": "Anjali Rao",
+      "role": "Regular Diner",
+      "rating": 5,
+      "text": "The best butter chicken in Indiranagar, hands down. We've been coming here every weekend for three years and the taste is consistently outstanding.",
+      "avatar": ""
+    },
+    {
+      "name": "Rajesh Menon",
+      "role": "Food Blogger",
+      "rating": 5,
+      "text": "Reviewed over 200 restaurants in Bangalore — Spice Garden's biryani is genuinely top-tier. The flavours are authentic and portions are generous.",
+      "avatar": ""
+    },
+    {
+      "name": "Priya & Family",
+      "role": "Family of Five",
+      "rating": 5,
+      "text": "Perfect place for a family dinner. The staff are warm, the ambience is lovely, and the kids' meals are thoughtfully prepared. Highly recommended!",
+      "avatar": ""
+    },
+    {
+      "name": "Karthik Subramaniam",
+      "role": "Corporate Client",
+      "rating": 4,
+      "text": "Booked their catering for an office event of 80 people. On-time delivery, professional setup and every guest complimented the food. Will use again.",
+      "avatar": ""
+    },
+    {
+      "name": "Meera Nair",
+      "role": "Local Guide on Google",
+      "rating": 5,
+      "text": "Ordered directly from their website — saved the Swiggy commission AND the food arrived 15 minutes faster. The veg thali was incredible value.",
+      "avatar": ""
+    },
+    {
+      "name": "Suresh Iyer",
+      "role": "Anniversary Celebration",
+      "rating": 5,
+      "text": "Celebrated our anniversary here. They arranged a special table and a complimentary dessert. Made our evening truly memorable. Thank you, Spice Garden!",
+      "avatar": ""
+    }
+  ],
+  "team": [],
+  "faq": [
+    {
+      "q": "Do you take table reservations?",
+      "a": "Yes! You can book a table by calling us, sending a WhatsApp message or using the contact form on this page. Walk-ins are always welcome, but weekends get busy so a reservation is recommended."
+    },
+    {
+      "q": "Do you offer home delivery?",
+      "a": "Absolutely. You can order directly from our website or WhatsApp — no middleman commission, so you save more and the food arrives faster. We deliver within 5 km radius."
+    },
+    {
+      "q": "Is parking available?",
+      "a": "Yes, we have dedicated parking for 30+ cars adjacent to the restaurant. Valet parking is also available on Friday and Saturday evenings."
+    },
+    {
+      "q": "Do you cater for private events?",
+      "a": "Yes, we offer off-site catering for weddings, corporate events and private parties. Contact us for a customised menu and quote."
+    },
+    {
+      "q": "Are there options for vegetarians?",
+      "a": "Of course! Over 60% of our menu is vegetarian, clearly marked with the 'Veg' tag. We also offer Jain-friendly options on request."
+    }
+  ]
+}
