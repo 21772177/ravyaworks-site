@@ -1,0 +1,143 @@
+{
+  "businessName": "Chefcraft",
+  "industry": "Caterer",
+  "slug": "chefcraft",
+  "tagline": "We Build Trust, We Deliver Quality",
+  "description": "A trusted name in our industry, serving customers with excellence and care. We are committed to delivering the best experience to every client who walks through our doors.",
+  "heroImage": "",
+  "theme": "caterer",
+  "phone": "091081 52760",
+  "email": "",
+  "address": "Mahadevapura, Bengaluru, 40/1, Sparkling Nest Rd, Garudachar Palya, Mahadevapura, Bengaluru, Karnataka 560048, India",
+  "city": "",
+  "state": "",
+  "pincode": "",
+  "googleMaps": "",
+  "googleRating": "4.9",
+  "reviewCount": "7",
+  "businessHours": {},
+  "serviceOptions": [
+    "50+ Cuisine Options",
+    "Live Counters & Buffets",
+    "Full Event Management",
+    "Customised Menus Available"
+  ],
+  "socialLinks": {
+    "facebook": "#",
+    "instagram": "#",
+    "twitter": "#",
+    "youtube": "#"
+  },
+  "services": [
+    {
+      "title": "Wedding Catering",
+      "tag": "Signature",
+      "price": "On Request",
+      "description": "Complete wedding catering — from engagement to reception. Multi-course menus, live counters, dessert stations and a dedicated wedding coordinator for your big day.",
+      "image": "assets/svc-wedding.jpg"
+    },
+    {
+      "title": "Corporate Events",
+      "tag": "Corporate",
+      "price": "₹650/plate",
+      "description": "Annual days, conferences, product launches and office parties. Professional buffet setups, boxed lunches and high-tea packages tailored for corporate clients.",
+      "image": "assets/svc-corporate.jpg"
+    },
+    {
+      "title": "Birthday & Parties",
+      "tag": "Celebration",
+      "price": "₹450/plate",
+      "description": "Birthday bashes, anniversary dinners and housewarming parties. Custom kids' menus, themed setups and hassle-free catering so you enjoy the party too.",
+      "image": "assets/svc-birthday.jpg"
+    },
+    {
+      "title": "Live Food Counters",
+      "tag": "Interactive",
+      "price": "On Request",
+      "description": "Pasta counters, chaat stations, dosa live counters, Italian and Asian wok stations — interactive food experiences that wow your guests.",
+      "image": "assets/svc-live.jpg"
+    },
+    {
+      "title": "Cocktail & High Tea",
+      "tag": "Elegant",
+      "price": "₹350/plate",
+      "description": "Elegant high-tea spreads, cocktail party canapés and mocktail bars — perfect for product launches, social gatherings and evening events.",
+      "image": "assets/svc-high-tea.jpg"
+    },
+    {
+      "title": "Home Delivery",
+      "tag": "Small Orders",
+      "price": "₹250/plate",
+      "description": "Craving our food for a family dinner? Order home-delivered party platters — biryani, kebabs, curries and desserts starting from 10 plates.",
+      "image": "assets/svc-delivery.jpg"
+    }
+  ],
+  "gallery": [
+    "assets/gallery-1.jpg",
+    "assets/gallery-2.jpg",
+    "assets/gallery-3.jpg",
+    "assets/gallery-4.jpg",
+    "assets/gallery-5.jpg",
+    "assets/gallery-6.jpg"
+  ],
+  "reviews": [
+    {
+      "name": "Anita & Vikram Shetty",
+      "role": "Wedding Clients",
+      "rating": 5,
+      "text": "Royal Feast catered our 3-day wedding for 600 guests. Every meal was impeccable — from the traditional sadhya to the fusion dinner. The live pasta counter was a huge hit!",
+      "avatar": ""
+    },
+    {
+      "name": "Rohit Goyal",
+      "role": "Corporate Event Manager",
+      "rating": 5,
+      "text": "We've worked with Royal Feast for two annual conferences. Professional, punctual and the food quality is consistently outstanding. Our employees look forward to the lunch spread every year.",
+      "avatar": ""
+    },
+    {
+      "name": "Deepa Menon",
+      "role": "Birthday Party",
+      "rating": 5,
+      "text": "My daughter's 1st birthday was made so special by Royal Feast. The kids' menu was thoughtful, the setup was beautiful and they handled everything while I enjoyed the party.",
+      "avatar": ""
+    },
+    {
+      "name": "Karthik Rajan",
+      "role": "Family Gathering",
+      "rating": 5,
+      "text": "Booked home-delivered party platter for 20 people. The biryani and kebabs were restaurant-quality. Delivered hot and on time. Will order again for Diwali!",
+      "avatar": ""
+    },
+    {
+      "name": "Smita Nair",
+      "role": "Event Planner",
+      "rating": 5,
+      "text": "I've recommended Royal Feast to dozens of my clients. Their willingness to customise menus, attention to dietary restrictions and on-site coordination is unmatched in Bangalore.",
+      "avatar": ""
+    }
+  ],
+  "team": [],
+  "faq": [
+    {
+      "q": "What is the minimum order for catering?",
+      "a": "Our catering services start from a minimum of 30 plates. For home-delivered party platters, the minimum is 10 plates."
+    },
+    {
+      "q": "Can you accommodate dietary restrictions?",
+      "a": "Absolutely. We offer Jain, vegan, gluten-free and diabetic-friendly options. Just mention your requirements during the booking consultation."
+    },
+    {
+      "q": "Do you provide tasting sessions?",
+      "a": "Yes, we offer a complimentary tasting session for confirmed bookings of 100+ plates. For smaller events, a tasting fee of ₹1,500 applies (waived on booking)."
+    },
+    {
+      "q": "How far in advance should I book?",
+      "a": "For weddings and large events, we recommend booking 2–3 months in advance. Corporate and small events can be booked with 1 week's notice."
+    },
+    {
+      "q": "Do you handle the complete setup?",
+      "a": "Yes, we provide end-to-end service: menu planning, kitchen setup, service staff, live counters, buffet stations and cleanup. You just enjoy the event."
+    }
+  ]
+}
